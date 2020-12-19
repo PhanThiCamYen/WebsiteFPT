@@ -1,0 +1,67 @@
+﻿@using Web_FPT.Models;
+@{
+    ViewBag.Title = "LienHe";
+    Layout = "~/ Views / Shared /_Layout.cshtml";
+}
+<div class="container" id="myslide">
+    <div class="row">
+        <div class="col-md-1 col-lg-1"></div>
+        <div class="col-md-10 col-lg-10">
+            <div class="slide">
+                <div id="mySlides" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="~/Content/Images/posterlienhe.jpg" width="100%" height="100%" alt="First slide" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="font-size:20px;color:red;">Chúng tôi sẽ rất vui lòng khi nhận được sự phản hồi của các bạn. Nếu có gì chưa chính xác, hay nếu muốn đề xuất nội dung được viết trên website của iBook thì hãy gửi yêu cầu đến tôi.Chúng tôi sẽ cố gắng hỗ trợ các bạn một cách nhanh nhất và tốt nhất. Xin cảm ơn!</p>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="card-body">
+            <form class="form-horizontal" method="post" action="#">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label" style="font-size:17px;color:blue;">Họ & Tên*</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            @Html.TextBox("HOTENKH", null, new { @class = "form-control", @placeholder = "Nhập tên của bạn" })
+                        </div>
+                        <div style="color:red">
+                            @ViewData["Loi1"]
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="cols-sm-2 control-label" style="font-size:17px;color:blue;">Email*</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                @Html.TextBox("EMAIL", null, new { @class = "form-control", @placeholder = "Nhập email của bạn" })
+                            </div>
+                            <div style="color:red">
+                                @ViewData["Loi2"]
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label" style="font-size:17px;color:blue;">Nội Dung*</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                @Html.TextBox("NOIDUNG", null, new { @class = "form-control", @placeholder = "Nhập nội dung muốn chia sẻ" })
+                            </div>
+                            <div style="color:red">
+                                @ViewData["Loi3"]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">GỬI TIN NHẮN</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-1 col-lg-1"></div>
+    }
+    @Html.ActionLink("Chi tiết vui lòng liên hệ tại đây.", "ttlienhe", new { id = 001 }, new { @class = "btn btn-secondary" })
+</div>

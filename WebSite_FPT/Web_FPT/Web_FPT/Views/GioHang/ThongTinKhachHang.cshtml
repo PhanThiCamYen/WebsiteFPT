@@ -1,0 +1,119 @@
+﻿@using Web_FPT.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "ThongTinKhachHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="card-body">
+        <form class="form-horizontal" method="post" action="#">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label" style="font-size:17px;">1. Họ và Tên Khách Hàng*</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        @Html.TextBox("HOTENKH", null, new { @class = "form-control", @placeholder = "Nhập họ tên của bạn" })
+                    </div>
+                    <div style="color:red">
+                        @ViewData["Loi1"]
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label" style="font-size:17px;">2. Số Điện Thoại*</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        @Html.TextBox("SDT", null, new { @class = "form-control", @placeholder = "Nhập số điện thoại của bạn" })
+                    </div>
+                    <div style="color:red">
+                        @ViewData["Loi2"]
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label" style="font-size:17px;">3. Email*</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        @Html.TextBox("EMAIL", null, new { @class = "form-control", @placeholder = "Nhập email của bạn" })
+                    </div>
+                    <div style="color:red">
+                        @ViewData["Loi3"]
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label" style="font-size:17px;">4. Địa Chỉ Giao Hàng*</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        @Html.TextBox("DIACHI", null, new { @class = "form-control", @placeholder = "Nhập địa chỉ giao hàng" })
+                    </div>
+                    <div style="color:red">
+                        @ViewData["Loi4"]
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label" style="font-size:17px;">5. Phương thức giao hàng*</label>
+                <div class="cols-sm-10">
+                    <div class="phuongthucgiaohang" style="padding-left:50px">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultChecked" name="phuongthucgiaohang" value="Giao hàng tiêu chuẩn" checked="checked" />
+                            <label class="custom-control-label" for="defaultChecked">
+                                <span style="color:#26BC4E;font-weight:600;">Giao hàng tiêu chuẩn ( @{var daytieuchuan = DateTime.Today.Day + 3;} @daytieuchuan/@DateTime.Today.Month/@DateTime.Today.Year )</span>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio" style="padding-top:10px">
+                            <input type="radio" class="custom-control-input" id="defaultChecked2" name="phuongthucgiaohang" value="Giao hàng nhanh">
+                            <label class="custom-control-label" for="defaultChecked2">
+                                <span style="color:#26BC4E;font-weight:600;">Giao hàng nhanh ( @{var daygiaonhanh = DateTime.Today.Day + 1;} @daygiaonhanh/@DateTime.Today.Month/@DateTime.Today.Year)</span>
+                                <br />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label" style="font-size:17px;">6. Hình thức thanh toán*</label>
+                <div class="cols-sm-10">
+                    <div class="phuongthucthanhtoan" style="padding-left:50px">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="defaultChecked3" name="phuongthucthanhtoan" value="Thanh toán trực tiếp khi nhận hàng" checked="checked">
+                            <label class="custom-control-label" for="defaultChecked3">
+                                <span style="color:#26BC4E;font-weight:600;">Thanh toán tiền mặt khi nhận hàng tại nhà</span>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio" style="padding-top:10px">
+                            <input type="radio" class="custom-control-input" id="defaultChecked4" name="phuongthucthanhtoan" value="Thanh toán qua thẻ ngân hàng">
+                            <label class="custom-control-label" for="defaultChecked4">
+                                <span style="color:#26BC4E;font-weight:600;">Thanh toán qua chuyển khoản tại các hệ thống ngân hàng</span>
+                            </label>
+                            <script language="javascript">
+                                var checkbox = document.getElementById("defaultChecked4");
+                                if (checkbox.checked == true) {
+                                    document.getElementById("thethanhtoan").style.display = 'block';
+                                }
+                                else {
+                                    document.getElementById("thethanhtoan").style.display = 'none';
+                                }
+
+                            </script>
+                            <div style="padding-left:45px" id="thethanhtoan">
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/aripay.jpg" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/momo.jpg" style="max-height:150px;" width="110px" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div style="text-align:center;;padding-left: 44% !important;">
+                    <button type="submit" style="width:150px;" class="btn btn-primary btn-lg btn-block login-button">TIẾP TỤC</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

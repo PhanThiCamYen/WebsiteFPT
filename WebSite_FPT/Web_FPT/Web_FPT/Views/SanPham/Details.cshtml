@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="details_product" style="padding-top:30px;">
+    <div class="container" style="background-color:#FFFFFF">
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sm-4"><img src="~/Content/image/@Model.HinhAnh" width="100%" style="height:100%" /></div>
+            <div class="col-md-8 col-xs-8 col-sm-8">
+                <div class="row">
+                    <div><strong style="font-size:28px">@Model.TenSP</strong></div>
+                </div>
+                <div class="row">
+                    <p style="font-weight:bold;color:#575757;font-size:20px">Giá: @String.Format("{0:0,0}", Model.GiaBan) VNĐ</p>
+                </div>
+                <div class="review">
+                    <i class="fa fa-star" style="color:#FFC120;"></i>
+                    <i class="fa fa-star" style="color:#FFC120;"></i>
+                    <i class="fa fa-star" style="color:#FFC120;"></i>
+                    <i class="fa fa-star" style="color:#FFC120;"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <div class="row" style="padding-top:20px; border-bottom:1px solid #575757;font-weight:bold;color:#575757;font-size:20px">
+                    <div class="description">
+                        Thời Gian Bảo Hành: @Model.ThoiGianBH
+                    </div>
+                </div>
+                <div class="row" style="padding-top:20px;font-weight:bold;color:#575757;font-size:15px">
+                    <div class="description">
+                        @Model.MoTa
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="datmua" style="padding-top:5px">
+                        <a href="@Url.Action("ThemGioHang", "GioHang", new {@sMaSanPham = Model.MaSP,@strURL=Request.Url.ToString()})" onclick="return alert('Thêm sản phẩm vào giỏ hàng thành công.')">
+                            <button type="button" class="btn btn-danger" style="width:150px">
+                                <i class="fa fa-shopping-cart"> ĐẶT MUA </i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                @*<div class="row">
+
+                @*<label for="soluong" style="padding-top:10px;">Số lượng:&emsp;</label>
+        <input type="text" name="soluong" id="soluong" value="1" style="width:50px;text-align:center;" />
+
+                <a href="@Url.Action("ThemGioHang", "GioHang", new { @sMaSanPham = @Model.MASP, @strURL = Request.Url.ToString()})" onclick="return alert('Thêm sản phẩm vào giỏ hàng thành công.')" class=".link"><button type="button" class="btn btn-danger"><i class="fa fa-shopping-cart"></i>CHỌN MUA</button></a>
+            </div>*@
+                <div class="row" style="border-bottom:1px solid black;padding-top:20px;">
+                    <div class="favourite_product">
+                        <a href="#"><i class="fa fa-heart"></i>Yêu thích</a>
+                    </div>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                    <div class="comment_product">
+                        <a href="#"><i class="fa fa-comment-alt"></i>Thêm nhận xét của bạn</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

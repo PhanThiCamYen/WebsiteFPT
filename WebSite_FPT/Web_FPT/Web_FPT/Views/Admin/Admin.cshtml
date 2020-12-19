@@ -1,0 +1,48 @@
+﻿@using Web_FPT.Models
+@model List<SanPham>
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:center; width: 200px;">Ảnh</th>
+                <th style="text-align:center; width: 145px;">Mã Sản Phẩm</th>
+                <th style="text-align:center; width: 145px;">Tên Sản Phẩm</th>
+                <th style="text-align:center; width: 145px;">Số Lượng</th>
+                <th style="text-align:center;width: 145px;">Giá Bán</th>
+                <th style="text-align:center;width: 145px;">Mô Tả</th>
+                <th style="text-align:center;width: 145px;">Thời Gian BH</th>
+                <th style="text-align:center;width: 120px;"></th>
+                <th style="text-align:center;width: 120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (SanPham item in Model)
+                {
+            <tr>
+                <td style="text-align:center"><img src="~/Content/image/@item.HinhAnh" width="150px" height="150px" /></td>
+                <td style="text-align:center">@item.MaSP</td>
+                <td style="text-align:center">@item.TenSP</td>
+                <td style="text-align:center">@item.SoLuong </td>
+                <td style="text-align:center">@String.Format("{0:0,0}", item.GiaBan)</td>
+                <td style="text-align:center">@item.MoTa</td>
+                <td style="text-align:center">@item.ThoiGianBH</td>
+                @*<td style="text-align:center"><a href="#" class="">Sửa</a></td>*@
+                <td><button type="button" class="btn btn-info">Sửa</button></td>
+                @*<td style="text-align:center"><a href="#">Xoá</a></td>*@
+                <td><button type="button" class="btn btn-danger">Xóa</button></td>
+            </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+

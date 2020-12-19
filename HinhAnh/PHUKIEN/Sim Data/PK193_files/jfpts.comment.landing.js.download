@@ -1,0 +1,1096 @@
+﻿/**
+ * @author ducnv.
+ * @description Script for comment FptShop
+ **/
+
+jQuery(document).ready(function ($) {
+    if ($('#hoi-dap').length > 0) {
+        var commentFptShop = new CommentFptShop({
+            moduleId: $('#hoi-dap').attr('data-modul')
+        });
+        commentFptShop.init();
+    }
+
+    function getParameterByName(name) {
+        var url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var valueId = getParameterByName('commentid');
+
+    if (valueId != null && valueId != "") {
+        var id = parseInt(valueId);
+
+        $.ajax({
+            type: 'GET',
+            url: '//api.fptshop.com.vn/Ajax/Comment/GetListCommentByCommentId',
+            data: { CommentID: valueId }
+        }).done(function (data) {
+            $('#list-comment-top').append(data);
+
+            $('html, body').animate({ scrollTop: $("#list-comment-top").offset().top }, 1000);
+
+        });
+    }
+});
+
+/**
+ * Comment Object
+ */
+var CommentFptShop = function (option) {
+    this.option = jQuery.extend({
+        moduleId: 0
+    }, option);
+};
+
+var avatas = {
+    init: function () {
+        avatas.events();
+    },
+    events: function () {
+        $('.fhdcmtava').textAvatar({
+            width: 30
+        });
+    }
+};
+
+jQuery.validator.addMethod("noSpace", function (value, element) {
+    return value.trim() != "";
+}, "No space please and don't leave it empty");
+
+jQuery.validator.addMethod("rgphone", function (value, element) {
+    return this.optional(element) || /^(098|095|097|096|0169|0168|0167|0166|0165|0164|0163|0162|090|093|0122|0126|0128|0121|0120|091|094|0123|0124|0125|0127|0129|092|0188|0186|099|0199|086|088|089|087)[0-9]{7}$/.test(value);
+}, "Số điện thoại không đúng định dạng");
+
+
+
+
+CommentFptShop.prototype.init = function () {
+    var self = this;
+
+    $('#hoi-dap').html(self.buildHtmlTemplateInit());
+
+    /*comment*/
+    if ($(".fhdcmtava").length > 0) {
+        avatas.init();
+    }
+
+    $(document).on('click', '.fcm-login-close', function () {
+        $(this).closest('.fcm-login').hide('slow');
+        $(document).find('.fshop-cmt-tabtn').show();
+    });
+
+    $(document).on('click', '.fcm-login-fb', function () {
+        console.log("Login FB");
+        LoginFacebook($(this));
+    });
+
+    self.loadComment(undefined, undefined, undefined, 1, false);
+
+    self.pagingComment();
+
+    self.sendComment();
+
+    //self.filterComment();
+
+    //self.sortComment();
+
+
+
+    //self.likeComment();
+
+    //self.replyComment();
+
+
+
+    //self.setIconEmotionComment();
+};
+
+/**
+ * @author ducnv.
+ * @function
+ * @description The function used build init html when lload page.
+ */
+CommentFptShop.prototype.buildHtmlTemplateInit = function () {
+    var htmlInit = "<div class='fs-cmttit'>Hỏi và đáp <span class='fshop-cmtcount'>0</span></div> <div class='fs-cmtmain'> <div class='fs-cmttop clearfix'> <textarea rows='3' class='f-cmttarea txa-cmt' id='txa-cmt' placeholder='Viết câu hỏi của bạn'></textarea> <p class='noticmt'>Mời bạn viết bình luận.(Tối thiểu 3 ký tự)</p> <div id='uploads' class='uploads'></div> <ul class='fs-cmbtns'>  <li><button class='fs-cmbtn-send' id='btn-cmt-gui' type='button'>Gửi câu hỏi</button></li> </ul> </div><div class='f-cmtarbot' id='list-comment-top'></div><div class='f-cmtarbot' id='listComment'> <!--cmt--> </div> <div class='modal fade in' id='PopCMT' tabindex='-1' role='dialog'> <div class='modal-dialog' role='document'> <div class='modal-content'> <div class='modal-header'> <span class='pmd-close' data-dismiss='modal'>×</span> <h4 class='pmd-title'>Hoàn thành gửi câu hỏi</h4> </div> <input id='cmtId' type='hidden' value='0'> <form id='frmComment'> <div class='modal-body'> <p class='pmd-lb'>Tên:<sup>*</sup></p> <p> <input id='txtNameComment' type='text' name='txtNameComment' class='pmd-ip' placeholder='Nhập họ và tên'> </p><p class='noticmtfrm'>Bạn cần nhập họ tên!</p> <p class='pmd-ln2'>Để nhận thông báo khi có trả lời. Hãy nhập email và số điện thoại (Không bắt buộc)</p> <p class='pmd-lb'>Email:</p> <p> <input id='txtEmailComment' type='text' name='txtEmailComment' class='pmd-ip' placeholder='Nhập email'> </p> <p class='pmd-lb'>Số điện thoại:</p> <p> <input id='txtPhoneComment' type='text' name='txtPhoneComment' class='pmd-ip' placeholder='Nhập số điện thoại'> </p> <p class='noticmtphonefrm'>Bạn chưa nhập số điện thoại hoặc số điện thoại sai định dạng!</p><p class='pmd-ln3'> <button type='button' class='pmd-btn'>Gửi câu hỏi</button> </p> </div> </form>  <div class='modal-footer'> <div class='pmd-ln3'> <p class='pmd-ln4'>Hoặc gửi nhanh bằng cách</p> <p><a class='fcm-login-fb pmd-btnfb' href='javascript:void(0);' title=''><i class=' icdt icfbk'></i>Đăng nhập với Facebook</a> </p> </div> </div> </div> </div> </div> </div> <div class='fshop-cmt-cmtmores f-cmtpaging' id='ntc-viewmore-comment' data-page='2'><span>Xem thêm <strong>0</strong> bình luận</span></div>";
+    return htmlInit;
+};
+
+CommentFptShop.prototype.pageID = 0;
+
+/**
+ * @author ducnv.
+ * @function.
+ * @description The function used load comment.
+ * @param keyword Keyword used for search comment.
+ * @param searchin Search by email or name.
+ * @param sort Sort comment 1=>search by latest.
+ */
+CommentFptShop.prototype.loadComment = function (keyword, searchin, sort, currentPage, isPaging) {
+
+    var self = this,
+        keywordTemp = keyword || "",
+        searchinTemp = searchin || 0,
+        sortTemp = sort || 1,
+        currentPageTemp = currentPage || 1,
+        elementAppendComment = $('#hoi-dap').find('#listComment'),
+        $btnPaging = $('#hoi-dap').find('#ntc-viewmore-comment'),
+        idNews = 0;
+
+    if (elementAppendComment.length > 0) {
+        $.ajax({
+            type: 'GET',
+            url: UtilCommentFS.linkAjax().linkApiGetListComment,
+            data: {
+                pageId: self.pageID,
+                modulId: self.option.moduleId,
+                referID: $('.fnews-detail-rating').length > 0 ? $('.fnews-detail-rating').attr('data-id') : 0,
+                title: ($("head title")[0]).text,
+                orderby: sortTemp,
+                keyword: keywordTemp,
+                catesearch: searchinTemp,
+                page: currentPageTemp,
+                isNewTemplate: true,
+                v: 2
+            },
+            beforeSend: function () {
+                if (!isPaging) {
+                    elementAppendComment.html(UtilCommentFS.configConstant().imgBigLoading);
+                } else {
+                    $btnPaging.html(UtilCommentFS.configConstant().imgLoading);
+                }
+            }
+        }).done(function (data) {
+
+            if (isPaging) {
+                elementAppendComment.html(data.View);
+            } else {
+                elementAppendComment.html(data.View);
+
+                var currentPage = 1;
+                var pageSize = 10
+                var total = data.Total;
+                var stepRecord = 3;
+
+                $btnPaging.attr("data-total", data.Total);
+                $btnPaging.attr("data-pagesize", 10);
+                $btnPaging.attr("data-step", 1);
+
+                $('#ntc-viewmore-comment').html(CommentFptShop.prototype.buidPaging(stepRecord, currentPage, pageSize, total));
+                $btnPaging.show();
+            }
+
+            if (data.Total > 0) {
+                $btnPaging.show()
+            } else {
+                $btnPaging.hide()
+            }
+
+            $('#hoi-dap').find('.fshop-cmtcount').text(data.Total);
+
+            var avatas = {
+                init: function () {
+                    avatas.events();
+                },
+                events: function () {
+                    $('.fhdcmtava').textAvatar({
+                        width: 30
+                    });
+                }
+            };
+            if ($(".fhdcmtava").length > 0) {
+                avatas.init();
+            }
+
+            self.pageID = data.PageID;
+
+            //self.setLikeCommentInit();
+
+            //self.loadNewComment();
+        });
+    }
+};
+
+CommentFptShop.prototype.loadNewComment = function () {
+    var pidId = 0;
+
+    clearInterval(pidId);
+    pidId = setInterval(function () {
+        $.ajax({
+            type: 'GET',
+            url: UtilCommentFS.linkAjax().linkGetNewComment,
+            data: { pageId: this.pageID, modulId: this.option.moduleId, currentLastId: $('#listCommentCate').find('.fshop-cmt-numlike').first().attr('data-id') }
+        }).done(function (data) {
+            if (data && Number(data.Total) > 0) {
+                var htmlNotification = $([
+                    "<div class='new-comment-ntc'>",
+                        "<span>Bạn có <strong>0</strong> comment mới.</span>",
+                        "<a href='javascript:void(0);'>Click để xem</a>",
+                    "</div>"
+                ].join('\n'));
+
+                $('#listCommentCate').data('view', data.View);
+                $(document).find('.new-comment-ntc').remove();
+                htmlNotification.insertBefore('.fshop-cmt-head').fadeIn('300').find("strong").text(data.Total);
+            }
+        });
+    }.bind(this), UtilCommentFS.configConstant().timerGetNewComment);
+};
+
+/**
+ * @author ducnv.
+ * @function
+ * @description The function used for paging comment
+ */
+CommentFptShop.prototype.pagingComment = function () {
+    var self = this;
+    //$('#hoi-dap').find('#ntc-viewmore-comment').off('click').on('click', function () {
+
+    //    var dataPage = $(this).attr('data-page'),
+    //        valueFilter = self.getValueFilter();
+    //    self.loadComment(valueFilter.keyword, valueFilter.searchin, valueFilter.sort, dataPage, true);
+    //});
+
+    $(document).on('click', 'a.pageNumber', function () {
+        $('html, body').animate({ scrollTop: $("#list-comment-top").offset().top - 100 }, 1000);
+
+        var currentPage = parseInt($(this).attr('data-page'));
+        var pageSize = parseInt($('#ntc-viewmore-comment').attr('data-pagesize'));
+        var total = parseInt($('#ntc-viewmore-comment').attr('data-total'));
+        var stepRecord = parseInt($('#ntc-viewmore-comment').attr('data-step'));
+        var datapage = currentPage,
+            valueFilter = self.getValueFilter();
+
+        self.loadComment(valueFilter.keyword, valueFilter.searchin, valueFilter.sort, datapage, true);
+        $('#ntc-viewmore-comment').html(CommentFptShop.prototype.buidPaging(stepRecord, currentPage, pageSize, total));
+        $('#hoi-dap').find('#ntc-viewmore-comment').show();
+
+
+    });
+};
+/**
+ * @author ducnv.
+ * @function
+ * @description The function used send comment to server.
+ */
+CommentFptShop.prototype.sendComment = function () {
+    var self = this,
+        commentKeyup = '';
+    $('#hoi-dap').off('click', '#btn-cmt-gui').on('click', '#btn-cmt-gui', function (event) {
+        event.preventDefault();
+
+        $('#cmtId').val(0);
+        var valueComment = '';
+        var valueCommentId = parseInt($('#cmtId').val());
+        var classid = '.txa_comment_' + valueCommentId;
+        if (valueCommentId == 0) {
+            valueComment = $('#txa-cmt').val().trim();
+        } else {
+            valueComment = $(classid).val().trim();
+        }
+
+        var $self = $(this),
+            comment = valueComment,
+            idComment = $self.attr('data-id') || 0,
+            $fcmLogin = $self.closest('.fshop-cmt-tabox').parent().next();
+
+        comment = UtilCommentFS.standardizedString(comment);
+
+        if (valueComment.length <= 3 || valueComment.length >= 5000) {
+            $('.noticmt').show();
+            setTimeout(function () { $('.noticmt').hide(); }, 3000);
+            return;
+        } else {
+            $('#PopCMT').modal('show');
+        }
+
+    });
+
+    $(document).on('click', '.answer-comment', function (e) {
+        var classid = '.answer-comment-' + $(this).attr('data-id');
+        $('#cmtId').val($(this).attr('data-id'));
+        $(".box-comment-sub").hide();
+        $(classid).show();
+    });
+
+    $(document).on('click', '.btn_comment_send_sub', function (e) {
+        var classid = '.txa_comment_' + $(this).attr('data-id');
+        var note = $(classid).val();
+        $('#cmtId').val($(this).attr('data-id'));
+        if (note.length >= 3 && note.trim().length >= 3) {
+            $('#PopCMT').modal('show');
+        } else {
+            $('.noticmtsub').show();
+            setTimeout(function () { $('.noticmtsub').hide(); }, 3000);
+        }
+    });
+
+    $(document).on('click', '.pmd-btn', function (e) {
+        $('.pmd-btn').attr('disabled', true);
+        var userName = '',
+            phone = '',
+            email = '',
+            $self = $(this),
+            $fshopCmtTabtn = $self.next(),
+            $fcmLogin = $self.closest('.fshop-cmt-tabox').parent().next(),
+            idComment = $self.attr('data-id') || 0;
+
+        var valueComment = '';
+        var valueCommentId = parseInt($('#cmtId').val());
+        var classid = '.txa_comment_' + valueCommentId;
+        if (valueCommentId == 0) {
+            valueComment = $('#txa-cmt').val();
+        } else {
+            valueComment = $(classid).val();
+        }
+        commentKeyup = valueComment.trim();
+
+        var valueNameComment = $('#txtNameComment').val().trim();
+        var valueEmailComment = $('#txtEmailComment').val();
+        var valuePhoneComment = $('#txtPhoneComment').val();
+
+        if (valueNameComment.length <= 0) {
+            $('.noticmtfrm').show();
+            setTimeout(function () { $('.noticmtfrm').hide(); }, 3000);
+            return false;
+        }
+        if (valuePhoneComment.length > 0) {
+            if (!UtilCommentFS.isValidatePhone(valuePhoneComment)) {
+                $('.noticmtphonefrm').show();
+                setTimeout(function () { $('.noticmtphonefrm').hide(); }, 3000);
+                return false;
+            }
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '//api.fptshop.com.vn/Ajax/Comment/AddComment',
+            data: {
+                pageId: 0,
+                shopCommentID: valueCommentId,
+                content: valueComment,
+                name: valueNameComment,
+                email: valueEmailComment,
+                phone: valuePhoneComment
+            }
+        }).done(function (data) {
+
+            if (valueCommentId === 0) {
+                html = '<div class="f-cmt-ask">' +
+                        '<div class="f-cmuser">' +
+                            '<div class="textavatar fhdcmtava" data-name="' + valueNameComment + '" style="width: 30px; height: 30px;"><abbr title="' + valueNameComment + '">U</abbr></div>' +
+                        '</div>' +
+                        '<strong class="f-cmname">' + valueNameComment + '</strong>' +
+                        '<span class="f-cmtime">Vừa xong</span>' +
+                        '<div class="f-cmmain">' + valueComment + '</div>' +
+                    '</div>';
+                $('#list-comment-top').html(html);
+            } else {
+                html = '<div class="f-cmuser">' +
+                            '<div class="textavatar fhdcmtava" data-name="' + valueNameComment + '" style="width: 30px; height: 30px;"><abbr title="' + valueNameComment + '">U</abbr></div>' +
+                        '</div>' +
+                        '<strong class="f-cmname">' + valueNameComment + '</strong>' +
+                        '<span class="f-cmtime">Vừa xong</span>' +
+                        '<div class="f-cmmain">' + valueComment + '</div>';
+                classrep = '.rep-' + valueCommentId;
+                classboxrep = '.answer-comment-' + valueCommentId;
+                $(classrep).append(html);
+                $(classboxrep).hide();
+            }
+
+            $('.pmd-btn').attr('disabled', false);
+            $('#txa-cmt').val('');
+            $('#txtNameComment').val('');
+            $('#txtEmailComment').val('');
+            $('#txtPhoneComment').val('');
+            $('#PopCMT').modal('hide');
+
+            ToastFts.showToast({
+                text: UtilCommentFS.configConstant().messageSuccess
+            });
+        });
+        return false;
+
+
+    });
+
+    $(document).on('keyup', '.fshop-cmt-textarea', function () {
+        var userName = '',
+            phone = '',
+            email = '',
+            $self = $(this),
+            $fshopCmtTabtn = $self.next(),
+            $fcmLogin = $self.closest('.fshop-cmt-tabox').parent().next(),
+            idComment = $self.attr('data-id') || 0;
+
+        commentKeyup = $self.val().trim();
+
+        if (commentKeyup.length < 3) {
+            $fcmLogin.hide('slow');
+            $('#btnCommentCate').show();
+            var classcmt = '#btnCommentCateReply-' + idComment;
+            $(classcmt).show();
+        }
+
+        if (commentKeyup.length > 3) {
+            $fshopCmtTabtn.hide();
+            $fcmLogin.show('slow', function () {
+                $(this).find('.fcm-login-btn').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    var $selfFcmLoginBtn = $(this);
+
+                    userName = $selfFcmLoginBtn.closest('.fcm-login-col').find('input[name="name"]').val().trim();
+                    email = $selfFcmLoginBtn.closest('.fcm-login-col').find('input[name="email"]').val();
+                    phone = $selfFcmLoginBtn.closest('.fcm-login-col').find('input[name="phone"]').val();
+
+                    if (!userName) {
+                        ToastFts.showToast({
+                            text: 'Bạn cần nhập họ tên!.',
+                            type: 'Warning'
+                        });
+                        return false;
+                    }
+                    if (phone.length > 0) {
+                        if (!UtilCommentFS.isValidatePhone(phone)) {
+                            ToastFts.showToast({
+                                text: 'bạn chưa nhập số điện thoại hoặc số điện thoại sai định dạng!.',
+                                type: 'warning'
+                            });
+                            return false;
+                        }
+                    }
+
+
+                    $fcmLogin.hide('slow');
+                    UtilCommentFS.resetInput(['.fshop-cmt-textarea', '.fcm-login-txt']);
+                    $.ajax({
+                        type: 'POST',
+                        url: UtilCommentFS.linkAjax().linkApiAddComment,
+                        data: {
+                            pageId: self.pageID,
+                            shopCommentID: idComment,
+                            content: commentKeyup,
+                            name: userName,
+                            email: email,
+                            phone: phone
+                        }
+                    }).done(function (data) {
+                        if (data.ID === -1) {
+                            ToastFts.showToast({
+                                text: 'Bạn phải vào trang FPTShop mới có thể bình luận',
+                                type: 'Warning'
+                            });
+                            return false;
+                        } else if (data.ID === -2) {
+                            ToastFts.showToast({
+                                text: 'Bạn không thể bình luận liên tiếp trong 10 giây',
+                                type: 'Warning'
+                            });
+                            return false;
+                        } else {
+                            if (idComment === 0) {
+                                $('#wrapper-nt-comment').find('#listCommentCate').prepend(self.buildHtmlComment(true, {
+                                    id: data.ID,
+                                    username: userName,
+                                    comment: commentKeyup
+                                }));
+                            } else {
+                                $self.closest('.fshop-cmt-hide').after(self.buildHtmlComment(false, {
+                                    id: data.ID,
+                                    username: userName,
+                                    comment: commentKeyup
+                                })).hide();
+                            }
+
+                            self.pageID = data.PageID;
+
+                            //self.SendAnsync({
+                            //    linkAnsyn: UtilCommentFS.linkAjax().linkApiAsync,
+                            //    contenComment: commentKeyup,
+                            //    ID: data.ID,
+                            //    title: ($("head title")[0]).text,
+                            //    modulId: self.option.moduleId
+                            //});
+
+                            ToastFts.showToast({
+                                text: UtilCommentFS.configConstant().messageSuccess
+                            });
+                        }
+                    });
+                    $fshopCmtTabtn.show();
+                    return false;
+                });
+            });
+        }
+    });
+};
+
+CommentFptShop.prototype.SendAnsync = function (option) {
+    $.post(option.linkAnsyn,
+    {
+        message: option.contenComment,
+        commentId: option.ID,
+        title: option.title,
+        modulId: option.modulId
+    },
+    function () {
+
+        console.log("da gui thong bao");
+    });
+};
+
+/**
+ * @author Nghiatc2.
+ * @function.
+ * @description The function used for filter comment.
+ */
+CommentFptShop.prototype.filterComment = function () {
+    var self = this;
+
+    $('#wrapper-nt-comment').on('keyup', '#txt-filter-comment', function (e) {
+        var valueFilter = self.getValueFilter();
+
+        if (e.keyCode == 13) {
+
+            if (!valueFilter.keyword) {
+                alert("Bạn chưa nhập thông tin tìm kiếm");
+                return false;
+            }
+
+            self.loadComment(valueFilter.keyword, valueFilter.searchin, valueFilter.sort, false);
+            $('#wrapper-nt-comment').find('#ntc-viewmore-comment').attr('data-page', 2);
+        }
+        return false;
+    });
+};
+
+/**
+ * @author Nghiatc2.
+ * @function
+ * @description The function used for sort comment
+ */
+CommentFptShop.prototype.sortComment = function () {
+    var self = this;
+
+    $('#wrapper-nt-comment').on('click', '.fshop-cm-hsort span', function () {
+        var $self = $(this);
+
+        $self.closest('.fshop-cm-hsort').find('.active').removeClass('active');
+
+        $self.addClass('active');
+
+        var valueFilter = self.getValueFilter();
+
+        self.loadComment(valueFilter.keyword, valueFilter.searchin, valueFilter.sort, false);
+
+        $('#wrapper-nt-comment').find('#ntc-viewmore-comment').attr('data-page', 2);
+    });
+};
+
+/**
+ * @author Nghiatc2.
+ * @function
+ * @description The function used get all value use for filter.
+ * @return {object}
+ */
+CommentFptShop.prototype.getValueFilter = function () {
+    var valueFilter = $.extend({
+        keyword: '',
+        searchin: 0,
+        sort: 1
+    }, {
+        keyword: UtilCommentFS.standardizedString($('#wrapper-nt-comment').find('#txt-filter-comment').val()),
+        searchin: $('#wrapper-nt-comment').find('#select-condition-filter-comment').val(),
+        sort: $('#wrapper-nt-comment').find('.fshop-cm-hsort').find('.active').attr('data-value')
+    });
+    return valueFilter;
+};
+
+/**
+ * @author Nghiatc2.
+ * @function.
+ * @description The function used when user like or unlike comment.
+ */
+CommentFptShop.prototype.likeComment = function () {
+    var self = this;
+
+    $('#wrapper-nt-comment').on('click', '.fshop-cmt-btnlike', function () {
+        var $self = $(this),
+            idComment = $self.next('.fshop-cmt-numlike').attr('data-id'),
+            elementNumberLike = $self.next('.fshop-cmt-numlike').find('span');
+
+        // used unlike
+        if ($self.hasClass('liked')) {
+            $self.removeClass('liked');
+
+            //decrease like
+            if (Number(elementNumberLike.text()) == 0) {
+                elementNumberLike.text('0');
+            } else {
+                elementNumberLike.text(Number(elementNumberLike.text()) - 1);
+            }
+
+
+            $self.text('Thích');
+
+            $.post(UtilCommentFS.linkAjax().linkApiUnLike, { CommentID: idComment }).done(function () {
+                self.saveLikeCommentToCookie(idComment, false);
+            });
+        } else {
+            $self.addClass('liked');
+
+            // increase like up 1.
+            elementNumberLike.text(Number(elementNumberLike.text()) + 1);
+
+            $self.text("Bỏ thích");
+
+            $.post(UtilCommentFS.linkAjax().linkApiLike, { CommentID: idComment }).done(function (data) {
+                self.saveLikeCommentToCookie(idComment, true);
+            });
+        }
+    });
+};
+
+CommentFptShop.prototype.buildHtmlComment = function (isParent, option) {
+    var html = "";
+
+    if (isParent) {
+        html = $([
+            "<div class='fshop-cmt-item'>",
+                "<div class='fshop-cmt-ask'>",
+                    "<div class='fshop-cmt-textmain'>" + option.comment + "</div>",
+                    "<div class='fshop-cmt-bottmain clearfix'>",
+                        "<div class='fshop-cmt-col6'>",
+                            "<img class='fshop-cmt-avatar' src='/Content/assest/images/no-avatar.png?v=9999' alt=''>",
+                            "<span class='fshop-cmt-user'>",
+                                "<strong>" + option.username + "</strong> - " + UtilCommentFS.getBackDate(new Date()),
+                            "</span>",
+                        "</div>",
+                        "<div class='fshop-cmt-col6'>",
+                            "<p class='fshop-cmt-relate'>",
+                                "<span class='fshop-cmt-btnreply' data-id='" + option.id + "'>Trả lời</span>",
+                                "<span class='fshop-cmt-btnlike'>Thích</span>",
+                                "<span class='fshop-cmt-numlike' data-id='" + option.id + "'>",
+                                    "<img src='/Content/Publishing/Comment/img/icon-numlike.png'>",
+                                    "<span class='number-like'>0</span>",
+                                "</span>",
+                            "</p>",
+                        "</div>",
+                    "</div>",
+                "</div>",
+                "<div class='fshop-cmt-reply fshop-cmt-hide'>",
+                    "<form>",
+                        "<div class='fshop-cmt-tabox'>",
+                            "<textarea class='fshop-cmt-textarea' rows='2' placeholder='Viết bình luận của bạn...'></textarea>",
+                            "<input data-id='" + option.id + "' type='button' class='fshop-cmt-tabtn btn-reply-comment' value='Bình luận'>",
+                        "</div>",
+                    "</form>",
+                "</div>",
+            "</div>"
+        ].join("\n"));
+    } else {
+        html = $([
+            "<div class='fshop-cmt-reply'>",
+                "<div class='fshop-cmt-textmain'>" + option.comment + "</div>",
+                "<div class='fshop-cmt-bottmain clearfix'>",
+                    "<div class='fshop-cmt-col6'>",
+                        "<img class='fshop-cmt-avatar' src='/Content/assest/images/no-avatar.png?v=9999' alt=''>",
+                        "<span class='fshop-cmt-user'>",
+                            "<strong>" + option.username + "</strong>" + "<i></i> - " + UtilCommentFS.getBackDate(new Date()),
+                        "</span>",
+                    "</div>",
+                    "<div class='fshop-cmt-col6'>",
+                        "<p class='fshop-cmt-relate'>",
+                            "<span class='fshop-cmt-btnlike'>Thích</span>",
+                            "<span class='fshop-cmt-numlike' data-id='" + option.id + "'>",
+                                "<img src='/Content/Publishing/Comment/img/icon-numlike.png' alt=''>",
+                                "<span class='number-like'>0</span>",
+                            "</span>",
+                        "</p>",
+                    "</div>",
+                "</div>",
+            "</div>"
+        ].join("\n"));
+    }
+    return html;
+};
+
+CommentFptShop.prototype.replyComment = function () {
+    $('#wrapper-nt-comment').on('click', '.fshop-cmt-btnreply', function () {
+        var $self = $(this);
+
+        $self.closest('.fshop-cmt-ask').next().toggle(300);
+    });
+};
+
+/**
+ * @author Nghiatc2.
+ * @function.
+ */
+CommentFptShop.prototype.setLikeCommentInit = function () {
+    var cookieLikeObject = UtilCommentFS.getCookie(UtilCommentFS.configConstant().nameLikeCookie),
+        cookieLike;
+
+    if ($.trim(cookieLikeObject) !== '') {
+        cookieLike = JSON.parse(cookieLikeObject);
+
+        $('#wrapper-nt-comment').find('.fshop-cmt-btnlike').each(function () {
+            var $self = $(this),
+                idComment = $self.next().attr('data-id');
+
+            $.each(cookieLike, function (i, v) {
+                if (Number(idComment) === Number(v)) {
+                    $self.addClass('liked').text('Bỏ thích');
+                }
+            });
+        });
+    }
+};
+
+CommentFptShop.prototype.saveLikeCommentToCookie = function (idComment, isLike) {
+    var cookieLikeObject = UtilCommentFS.getCookie(UtilCommentFS.configConstant().nameLikeCookie),
+        cookieLike = [];
+
+    if ($.trim(cookieLikeObject)) {
+        cookieLike = JSON.parse(cookieLikeObject);
+    }
+
+    if (isLike) {
+        cookieLike.push(idComment);
+    } else {
+        cookieLike = $.grep(cookieLike, function (value) {
+            return Number(value) != Number(idComment);
+        });
+    }
+
+    UtilCommentFS.setCookie(UtilCommentFS.configConstant().nameLikeCookie, JSON.stringify(cookieLike), 365);
+};
+
+/**
+ * @author Nghiatc2.
+ * @function.
+ * @description The function add icon emotion to parent comment
+ */
+CommentFptShop.prototype.setIconEmotionComment = function () {
+    $(document).find('#ntc-wrapper-add-icon').find('span').off('click').on('click', function () {
+        $(this).closest('.ntc-icon-smile').prev().find('.fshop-cmt-textarea').val($(this).html());
+    });
+};
+
+
+var UtilCommentFS = (function ($) {
+    var linkAjax, standardizedString,
+        setCookie, getCookie,
+        configConstant, getBackDate,
+        checkEmail,
+        resetInput;
+
+    linkAjax = function () {
+        var linkApi = "//api1.fptshop.com.vn/Ajax/Comment/";
+
+        return {
+            linkApiGetListComment: linkApi + "GetListComment",
+            linkApiAddComment: linkApi + "AddComment",
+            linkApiLike: linkApi + "Like",
+            linkApiUnLike: linkApi + "Unlike",
+            linkGetNewComment: linkApi + "GetLastestComment",
+            linkApiAsync: "//api.fptshop.com.vn/message"
+        };
+    };
+
+    /**
+     * @author Nghiatc2.
+     * @function.
+     * @description Chuẩn hóa chuỗi.
+     * @param {string} chuỗi cần chuẩn hóa.
+     */
+    standardizedString = function (string) {
+        var stringTemp = string,
+            newValue = '';
+
+        if (stringTemp) {
+
+            /*Loại bỏ các ký tự đặc biệt*/
+            stringTemp = stringTemp.replace(/!|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g, " ");
+
+            var arrStr = stringTemp.match(/\S+/g);
+
+            $.each(arrStr, function (i, v) {
+                newValue += $.trim(v) + ' ';
+            });
+        }
+
+        return stringTemp;
+    };
+
+    getCookie = function (cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';'),
+            i = 0,
+            length = ca.length;
+
+        for (; i < length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    };
+
+    setCookie = function (cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    };
+
+    configConstant = function () {
+        return {
+            nameEmailCookie: "ftscustomerEmail",
+            nameCustomerCookie: "ftscustomerName",
+            namePhoneCookie: 'ftscustomerPhone',
+            nameLikeCookie: 'ftsCokkieLL',
+            messageSuccess: "<span>Bình luận của bạn đã được ghi nhận</span>.</br><span>Chúng tôi sẽ phản hồi bạn sau ít phút nhé!</span>",
+            imgLoading: "<img src='/Content/images/ajax_loader_small.gif'>",
+            imgBigLoading: "<img style='margin:0 auto;' src='/Content/images/ajax_loader_big.gif'>",
+            timerGetNewComment: 120000
+        };
+    };
+
+    getBackDate = function (currentDateTime) {
+        var result = "";
+
+        var day = Math.round((new Date() - currentDateTime) / (24 * 60 * 60 * 1000));
+        var hours = Math.round(((new Date() - currentDateTime) / 1000 / 60 / 60), 1);
+        var minute = Math.round((new Date() - currentDateTime) / 6000, 1);
+        var second = Math.round((new Date() - currentDateTime) / 1000, 1);
+
+        result = second + " giây trước";
+
+        if (minute > 0) {
+            result = minute + " phút trước";
+        }
+
+        if (hours > 0) {
+            result = hours + " giờ trước";
+        }
+
+        if (day > 0) {
+            result = day + " ngày trước";
+        }
+
+        if (day > 30) {
+            result = "vào ngày " + currentDateTime.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear();
+        }
+
+        return result;
+    };
+
+    checkEmail = function (email) {
+        var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return re.test(email);
+    };
+
+    isValidatePhone = function (phone) {
+        var regex = /^0[0-9]{9,10}$/;
+
+        if (phone.match(regex)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    resetInput = function (arrayName) {
+        if (arrayName) {
+            $.each(arrayName, function (i, v) {
+                $(document).find(v).val('');
+            });
+        }
+    };
+
+    return {
+        linkAjax: linkAjax,
+        standardizedString: standardizedString,
+        setCookie: setCookie,
+        getCookie: getCookie,
+        configConstant: configConstant,
+        getBackDate: getBackDate,
+        checkEmail: checkEmail,
+        resetInput: resetInput,
+        isValidatePhone: isValidatePhone
+    };
+})(jQuery);
+
+var ToastFts = (function ($) {
+    var showToast,
+        buildHtml,
+        closeToast;
+
+    buildHtml = function (options) {
+        var cssObj = {
+            background: '#71b371',
+            img: '/Content/v3/images/icon_success.png',
+            color: '#fff'
+        };
+
+        if (options.type === 'Warning') {
+            cssObj.background = '#C14D4D';
+            cssObj.img = '/Content/v3/images/icon_warning.png';
+            cssObj.color = '#F7F7F7';
+        }
+
+        var html = $([
+           "<div class='nts-toast' style='width:298px;z-index:9999;margin: 0 auto;position: fixed;top: 50%;left: 50%;margin-left: -145px;margin-top: -26px;'>",
+            "<div class='nts-wrapper' style='border:1px #71b371 solid;background: " + cssObj.background + ";color: " + cssObj.color + ";height: auto;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;padding:12px 12px 10px 1px;;font-size:12px;line-height: 24px;position: relative;'>",
+                "<div class='nts-close' style='position: absolute;right: 5px;top: 0;cursor: pointer'>x</div>",
+                "<div class='nts-icon-success' style='position: absolute;background: url(" + cssObj.img + ");width: 32px;height : 32px;left:7px'>",
+                "</div>",
+                "<div class='nts-content' style='padding-left: 40px;text-align: center;'>" + options.textMessage + "</div>",
+            "</div>",
+        "</div>"
+        ].join('\n'));
+        return html;
+    };
+
+    closeToast = function () {
+        $(document).on('click', '.nts-close', function () {
+            $('body').find('.nts-toast').fadeOut('slow', function () {
+                setTimeout(function () {
+                    this.remove();
+                }.bind($(this)), 1000);
+            });
+        });
+    };
+
+    showToast = function (options) {
+        var settings = $.extend({
+            type: 'success',
+            text: '',
+            stayTime: 5000
+        }, options),
+            htmlToast = '';
+
+        htmlToast = buildHtml({
+            textMessage: settings.text,
+            type: settings.type
+        });
+
+        $('body').append(htmlToast);
+
+        setTimeout(function () {
+            $('body').find('.nts-toast').fadeOut('slow', function () {
+                setTimeout(function () {
+                    this.remove();
+                }.bind($(this)), 1000);
+            });
+        }, 3000);
+
+        closeToast();
+    };
+
+    return {
+        showToast: showToast
+    };
+})(jQuery);
+/**
+Process for facebook login
+**/
+
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: '948243871965133', // App ID 346099572207846 localhost: 557842437665346
+        status: true, // check login status
+        cookie: true, // enable cookies to allow the server to access the session
+        xfbml: true  // parse XFBML
+    });
+};
+
+// Load the SDK asynchronously
+(function (d) {
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+}(document));
+
+function LoginFacebook(jqueyObject) {
+    FB.login(function (response) {
+        if (response.status === 'connected') {
+            getLogin(jqueyObject);
+        } else {
+            console.log('User cancelled login or did not fully authorize.');
+        }
+    }, { scope: 'email,public_profile,user_friends' });
+}
+
+function getLogin(jqueyObject) {
+    FB.api('/me?fields=name,email', function (response) {
+        var userName = '',
+            email = '';
+
+        if (response) {
+            userName = response.name;
+            email = response.email;
+
+            $('#txtNameComment').val(userName);
+            $('#txtEmailComment').val(email);
+
+            console.log('set gia tri cho text box name');
+            UtilCommentFS.setCookie(UtilCommentFS.configConstant().nameCustomerCookie, userName, 1);
+            UtilCommentFS.setCookie(UtilCommentFS.configConstant().nameEmailCookie, email, 1);
+
+            //$('.fcm-login').hide('slow');
+
+            jqueyObject.closest('.fcm-login').prev().find('.fshop-cmt-textarea').focus();
+            jqueyObject.closest('.fcm-login').prev().find('.fshop-cmt-tabtn').show();
+        }
+    });
+}
+/*End process login facebook*/
+//*add by ducnv buid paging*//
+CommentFptShop.prototype.buidPaging = function (step, currentPage, pageSize, total) {
+    var strPageHTML = "<ul class='tesst'>";
+    var emptyString = "";
+
+    var totalPage = total / pageSize;
+    if (total % pageSize > 0) {
+        totalPage = totalPage + 1;
+    }
+
+    if (currentPage > step + 1) {
+        strPageHTML += "<li><a  class='pageNumber' data-page='1' href='javascript:;'>««</a></li>";
+        strPageHTML += "<li><a class='pageNumber' data-page='" + (currentPage - 1) + "' href='javascript:;'>«</a></li>";
+        strPageHTML += "<li><a href='javascript:;'>...</a></li>";
+
+    }
+
+    var BeginFor = ((currentPage - step) > 1) ? (currentPage - step) : 1;
+    var EndFor = ((currentPage + step) > totalPage) ? totalPage : (currentPage + step);
+
+    for (var pNumber = BeginFor; pNumber <= EndFor; pNumber++) {
+        if (pNumber == currentPage)
+            strPageHTML += "<li class=\"active\"><a class='pageNumber' data-page='" + pNumber + "' href='javascript:;'>" + pNumber + "</a></li>";
+        else
+            strPageHTML += "<li><a class='pageNumber' data-page='" + pNumber + "' href='javascript:;'>" + pNumber +
+                "</a></li>";
+    }
+
+    if (currentPage < (totalPage - step)) {
+        strPageHTML += "<li><a href='javascript:;'>...</a></li>";
+        strPageHTML += "<li><a class='pageNumber' data-page='" + (currentPage + 1) + "' href='javascript:;'>»</a></li>";
+        strPageHTML += "<li><a class='pageNumber' data-page='" + totalPage + "' href='javascript:;'>»»</a></li>";
+    }
+    strPageHTML += "</ul>";
+    if (totalPage > 1)
+        return strPageHTML;
+    return emptyString;
+};

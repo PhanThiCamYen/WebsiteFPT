@@ -1,0 +1,51 @@
+﻿@using Web_FPT.Models
+@model List<SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <p style="font-weight:bold;font-size:18px;">TẤT CẢ SẢN PHẨM</p>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (SanPham sp in Model)
+            {
+        <div class="col-md-3 col-xs-3 col-sm-3" id="products" style="text-align:center;">
+            <div class="hinhanhsanpham">
+                <a>
+                    <img src="~/Content/image/@sp.HinhAnh" style="max-height:200px" width="200px" />
+                </a>
+            </div>
+            <div class="tensanpham">
+                <h5><a>@sp.TenSP</a></h5>
+            </div>
+            <div class="giasanpham">
+                <h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5>
+            </div>
+            <div class="giasanpham">
+                <h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5>
+            </div>
+            <div class="review">
+                <i class="fa fa-star" style="color:#FFC120;"></i>
+                <i class="fa fa-star" style="color:#FFC120;"></i>
+                <i class="fa fa-star" style="color:#FFC120;"></i>
+                <i class="fa fa-star" style="color:#FFC120;"></i>
+                <i class="fa fa-star"></i>
+                <p>15 Reviews</p>
+            </div>
+            <div class="datmua" style="padding-top:5px">
+                <a href="@Url.Action("ThemGioHang", "GioHang", new {@sMaSanPham = sp.MaSP,@strURL=Request.Url.ToString()})" onclick="return alert('Thêm sản phẩm vào giỏ hàng thành công.')">
+                    <button type="button" class="btn btn-danger" style="width:150px">
+                        <i class="fa fa-shopping-cart"> ĐẶT MUA </i>
+                    </button>
+                </a>
+            </div>
+        </div>
+            }
+        }
+    </div>
+</div>
+

@@ -1,0 +1,71 @@
+﻿@using Web_FPT.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="padding-left:550px">THÔNG TIN GIỎ HÀNG</h2>
+<div class="container">
+    @using Web_FPT.Models
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:center; width: 145px;">Mã Sản Phẩm</th>
+                <th style="text-align:center">Tên Sản Phẩm</th>
+                <th style="text-align:center; width: 200px;">Ảnh</th>
+                <th style="text-align:center; width: 145px;">Số Lượng</th>
+                <th style="text-align:center">Đơn Giá</th>
+                <th style="text-align:center; width: 90px"></th>
+                <th style="text-align:center;width: 120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align:center">@item.masp</td>
+                    <td style="text-align:center">@item.tensp</td>
+                    <td style="text-align:center"><img src="~/Content/image/@item.hinhanh" width="150px" height="150px" /></td>
+                    <td style="text-align:center">
+                        @if (item.soluongSP == 1)
+                        {
+                            <a href="@Url.Action("GiamSoLuongGioHang", "GioHang", new {@sMaSanPham = item.masp,@strURL=Request.Url.ToString()})"></a> @item.soluongSP <a href="@Url.Action("ThemGioHang", "GioHang", new {@sMaSanPham = item.masp,@strURL=Request.Url.ToString()})"><button type="button" class="btn btn-TangGiam" style="width:35px;height:35px;color: #191818;background-color: #f7f4f4">+</button></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("GiamSoLuongGioHang", "GioHang", new {@sMaSanPham = item.masp,@strURL=Request.Url.ToString()})"><button type="button" class="btn btn-TangGiam" style="width:35px;height:35px;color: #191818;background-color: #f7f4f4">-</button></a> @item.soluongSP <a href="@Url.Action("ThemGioHang", "GioHang", new {@sMaSanPham = item.masp,@strURL=Request.Url.ToString()})"><button type="button" class="btn btn-TangGiam" style="width:35px;height:35px;color: #191818;background-color: #f7f4f4">+</button></a>
+                        }
+
+                    </td>
+                    <td style="text-align:center">@String.Format("{0:0,0}", item.giabanSP)</td>
+                    <td style="text-align:center"><a href="@Url.Action("Details", "SanPham", new { id = item.masp })">Chi tiết</a></td>
+                    <td style="text-align:center"><a href="@Url.Action("XoaGioHang", "GioHang", new { @iMaSanPham = @item.masp })">Xoá</a></td>
+
+                </tr>
+
+            }
+        </tbody>
+        <tr>
+            <th></th>
+            <th></th>
+            <th style="text-align:center" colspan="2">Số lượng sản phẩm: @ViewBag.TongSoLuong</th>
+            <th style="text-align:center; width:400px;" colspan="2">Tổng tiền: @String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</th>
+            <th style="text-align:center" colspan="2">
+                <div class="thanhtoan">
+                    @{ if (Session["GioHangTrong"] == null)
+                        {
+                            @Html.ActionLink("Thanh Toán", "Index", "Home", new { id = "btn_order" }, new { @class = "btn btn-sm", @style = "background-color:#FF0F1E;color:#FFFFFF;float:right;", onclick = "return alert('Giỏ hàng trống nên vui lòng thêm sản phẩm để thanh toán.');" })
+
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("Thanh Toán", "ThongTinKhachHang", "GioHang", new { id = "btn_order" }, new { @class = "btn btn-sm", @style = "background-color:#FF0F1E;color:#FFFFFF;float:right;" })
+                        }
+                    }
+                </div>
+            </th>
+
+        </tr>
+    </table>
+</div>

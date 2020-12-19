@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <title>FPTSHOP</title>
+    @using Web_FPT.Models;
+    @using Web_FPT.Controllers;
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/6b02239e17.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+</head>
+<body>
+    <div class="menu">
+        <div class="row">
+            <div class="col col-lg-2">
+                <ul>
+                    <li><a href="#">Quản Lý Nhân Viên</a></li>
+                    <li><a href="#">Quản Lý Nhóm Sản Phẩm</a></li>
+                    <li><a href="#">Quản Lý Thống Kê</a></li>
+                    <li><a href="#">Quản Lý Khuyến Mãi</a></li>
+                    <li><a href="#">Quản Lý Kho</a></li>
+                </ul>
+            </div>
+            <div class="col col-lg-10">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
