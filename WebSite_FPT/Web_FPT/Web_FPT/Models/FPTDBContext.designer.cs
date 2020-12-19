@@ -45,6 +45,9 @@ namespace Web_FPT.Models
     partial void InsertChucVu(ChucVu instance);
     partial void UpdateChucVu(ChucVu instance);
     partial void DeleteChucVu(ChucVu instance);
+    partial void InsertHang(Hang instance);
+    partial void UpdateHang(Hang instance);
+    partial void DeleteHang(Hang instance);
     partial void InsertHoaDon(HoaDon instance);
     partial void UpdateHoaDon(HoaDon instance);
     partial void DeleteHoaDon(HoaDon instance);
@@ -150,6 +153,14 @@ namespace Web_FPT.Models
 			get
 			{
 				return this.GetTable<ChucVu>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Hang> Hangs
+		{
+			get
+			{
+				return this.GetTable<Hang>();
 			}
 		}
 		
@@ -1149,7 +1160,7 @@ namespace Web_FPT.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPQ", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPQ", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string MaPQ
 		{
 			get
@@ -1232,6 +1243,185 @@ namespace Web_FPT.Models
 		{
 			this.SendPropertyChanging();
 			entity.ChucVu = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Hang")]
+	public partial class Hang : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _MaHang;
+		
+		private string _TenHang;
+		
+		private string _MaNhomSP;
+		
+		private EntitySet<SanPham> _SanPhams;
+		
+		private EntityRef<NhomSanPham> _NhomSanPham;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaHangChanging(string value);
+    partial void OnMaHangChanged();
+    partial void OnTenHangChanging(string value);
+    partial void OnTenHangChanged();
+    partial void OnMaNhomSPChanging(string value);
+    partial void OnMaNhomSPChanged();
+    #endregion
+		
+		public Hang()
+		{
+			this._SanPhams = new EntitySet<SanPham>(new Action<SanPham>(this.attach_SanPhams), new Action<SanPham>(this.detach_SanPhams));
+			this._NhomSanPham = default(EntityRef<NhomSanPham>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHang", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string MaHang
+		{
+			get
+			{
+				return this._MaHang;
+			}
+			set
+			{
+				if ((this._MaHang != value))
+				{
+					this.OnMaHangChanging(value);
+					this.SendPropertyChanging();
+					this._MaHang = value;
+					this.SendPropertyChanged("MaHang");
+					this.OnMaHangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenHang", DbType="NVarChar(MAX)")]
+		public string TenHang
+		{
+			get
+			{
+				return this._TenHang;
+			}
+			set
+			{
+				if ((this._TenHang != value))
+				{
+					this.OnTenHangChanging(value);
+					this.SendPropertyChanging();
+					this._TenHang = value;
+					this.SendPropertyChanged("TenHang");
+					this.OnTenHangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaNhomSP", DbType="Char(5)")]
+		public string MaNhomSP
+		{
+			get
+			{
+				return this._MaNhomSP;
+			}
+			set
+			{
+				if ((this._MaNhomSP != value))
+				{
+					if (this._NhomSanPham.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaNhomSPChanging(value);
+					this.SendPropertyChanging();
+					this._MaNhomSP = value;
+					this.SendPropertyChanged("MaNhomSP");
+					this.OnMaNhomSPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hang_SanPham", Storage="_SanPhams", ThisKey="MaHang", OtherKey="MaHang")]
+		public EntitySet<SanPham> SanPhams
+		{
+			get
+			{
+				return this._SanPhams;
+			}
+			set
+			{
+				this._SanPhams.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhomSanPham_Hang", Storage="_NhomSanPham", ThisKey="MaNhomSP", OtherKey="MaNhomSP", IsForeignKey=true)]
+		public NhomSanPham NhomSanPham
+		{
+			get
+			{
+				return this._NhomSanPham.Entity;
+			}
+			set
+			{
+				NhomSanPham previousValue = this._NhomSanPham.Entity;
+				if (((previousValue != value) 
+							|| (this._NhomSanPham.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NhomSanPham.Entity = null;
+						previousValue.Hangs.Remove(this);
+					}
+					this._NhomSanPham.Entity = value;
+					if ((value != null))
+					{
+						value.Hangs.Add(this);
+						this._MaNhomSP = value.MaNhomSP;
+					}
+					else
+					{
+						this._MaNhomSP = default(string);
+					}
+					this.SendPropertyChanged("NhomSanPham");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SanPhams(SanPham entity)
+		{
+			this.SendPropertyChanging();
+			entity.Hang = this;
+		}
+		
+		private void detach_SanPhams(SanPham entity)
+		{
+			this.SendPropertyChanging();
+			entity.Hang = null;
 		}
 	}
 	
@@ -2798,7 +2988,7 @@ namespace Web_FPT.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPQ", DbType="Char(5)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPQ", DbType="VarChar(5)")]
 		public string MaPQ
 		{
 			get
@@ -2937,6 +3127,8 @@ namespace Web_FPT.Models
 		
 		private string _TenNSP;
 		
+		private EntitySet<Hang> _Hangs;
+		
 		private EntitySet<SanPham> _SanPhams;
 		
     #region Extensibility Method Definitions
@@ -2951,6 +3143,7 @@ namespace Web_FPT.Models
 		
 		public NhomSanPham()
 		{
+			this._Hangs = new EntitySet<Hang>(new Action<Hang>(this.attach_Hangs), new Action<Hang>(this.detach_Hangs));
 			this._SanPhams = new EntitySet<SanPham>(new Action<SanPham>(this.attach_SanPhams), new Action<SanPham>(this.detach_SanPhams));
 			OnCreated();
 		}
@@ -2995,6 +3188,19 @@ namespace Web_FPT.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhomSanPham_Hang", Storage="_Hangs", ThisKey="MaNhomSP", OtherKey="MaNhomSP")]
+		public EntitySet<Hang> Hangs
+		{
+			get
+			{
+				return this._Hangs;
+			}
+			set
+			{
+				this._Hangs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhomSanPham_SanPham", Storage="_SanPhams", ThisKey="MaNhomSP", OtherKey="MaNhomSP")]
 		public EntitySet<SanPham> SanPhams
 		{
@@ -3026,6 +3232,18 @@ namespace Web_FPT.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Hangs(Hang entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhomSanPham = this;
+		}
+		
+		private void detach_Hangs(Hang entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhomSanPham = null;
 		}
 		
 		private void attach_SanPhams(SanPham entity)
@@ -3355,6 +3573,8 @@ namespace Web_FPT.Models
 		
 		private string _MaNhomSP;
 		
+		private string _MaHang;
+		
 		private EntitySet<BaoHanh> _BaoHanhs;
 		
 		private EntitySet<TraGop> _TraGops;
@@ -3372,6 +3592,8 @@ namespace Web_FPT.Models
 		private EntitySet<ThanhToan> _ThanhToans;
 		
 		private EntitySet<ThongKe> _ThongKes;
+		
+		private EntityRef<Hang> _Hang;
 		
 		private EntityRef<NhomSanPham> _NhomSanPham;
 		
@@ -3395,6 +3617,8 @@ namespace Web_FPT.Models
     partial void OnThoiGianBHChanged();
     partial void OnMaNhomSPChanging(string value);
     partial void OnMaNhomSPChanged();
+    partial void OnMaHangChanging(string value);
+    partial void OnMaHangChanged();
     #endregion
 		
 		public SanPham()
@@ -3408,6 +3632,7 @@ namespace Web_FPT.Models
 			this._LaiSuats = new EntitySet<LaiSuat>(new Action<LaiSuat>(this.attach_LaiSuats), new Action<LaiSuat>(this.detach_LaiSuats));
 			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
 			this._ThongKes = new EntitySet<ThongKe>(new Action<ThongKe>(this.attach_ThongKes), new Action<ThongKe>(this.detach_ThongKes));
+			this._Hang = default(EntityRef<Hang>);
 			this._NhomSanPham = default(EntityRef<NhomSanPham>);
 			OnCreated();
 		}
@@ -3576,6 +3801,30 @@ namespace Web_FPT.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHang", DbType="Char(5)")]
+		public string MaHang
+		{
+			get
+			{
+				return this._MaHang;
+			}
+			set
+			{
+				if ((this._MaHang != value))
+				{
+					if (this._Hang.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaHangChanging(value);
+					this.SendPropertyChanging();
+					this._MaHang = value;
+					this.SendPropertyChanged("MaHang");
+					this.OnMaHangChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_BaoHanh", Storage="_BaoHanhs", ThisKey="MaSP", OtherKey="MaSP")]
 		public EntitySet<BaoHanh> BaoHanhs
 		{
@@ -3706,6 +3955,40 @@ namespace Web_FPT.Models
 			set
 			{
 				this._ThongKes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Hang_SanPham", Storage="_Hang", ThisKey="MaHang", OtherKey="MaHang", IsForeignKey=true)]
+		public Hang Hang
+		{
+			get
+			{
+				return this._Hang.Entity;
+			}
+			set
+			{
+				Hang previousValue = this._Hang.Entity;
+				if (((previousValue != value) 
+							|| (this._Hang.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Hang.Entity = null;
+						previousValue.SanPhams.Remove(this);
+					}
+					this._Hang.Entity = value;
+					if ((value != null))
+					{
+						value.SanPhams.Add(this);
+						this._MaHang = value.MaHang;
+					}
+					else
+					{
+						this._MaHang = default(string);
+					}
+					this.SendPropertyChanged("Hang");
+				}
 			}
 		}
 		

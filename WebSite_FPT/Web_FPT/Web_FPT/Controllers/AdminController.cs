@@ -15,28 +15,32 @@ namespace Web_FPT.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult DangNhap(FormCollection collection)
         {
-            var tendn = collection["userName"];
-            var matkhau = collection["password"];
-            if (string.IsNullOrEmpty(tendn))
+            var email = collection["userName"];
+            var matKhau = collection["password"];
+            NhanVien nhanVien = fpt.NhanViens.FirstOrDefault(nv => nv.EmailNV == email && nv.MatKhauNV == matKhau);
+            if (string.IsNullOrEmpty(email))
+            {
                 ViewData["Loi1"] = "Tên đăng nhập không được để trống!";
-            if (string.IsNullOrEmpty(matkhau))
+            }
+            else if (string.IsNullOrEmpty(matKhau))
+            {
                 ViewData["Loi2"] = "Mật khẩu không được để trống!";
+            }
+            else if (nhanVien != null && nhanVien.MaPQ == "QL")
+            {
+
+                Session["ten"] = nhanVien.TenNV;
+                Session["AdminIsLogin"] = true;
+                ViewBag.Thongbao = "Chúc mừng đăng nhập thành công";
+                return RedirectToAction("Admin", "Admin");
+            }
             else
             {
-                //ChucVu chucVu = 
-                if (tendn == "admin" && matkhau == "12345")
-                {
-                    Session["AdminIsLogin"] = true;
-                    return RedirectToAction("Admin", "Admin");
-                }
-                else
-                {
-                    ViewData["Loi"] = "Tài khoản hoặc mật khẩu sai";
-                }
-                return View();
+                ViewData["Loi"] = "Tên đăng nhập hoặc mật khẩu không chính xác!";
             }
             return View();
         }

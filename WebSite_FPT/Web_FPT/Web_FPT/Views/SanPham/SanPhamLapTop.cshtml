@@ -50,7 +50,7 @@
         {
             foreach (SanPham sp in Model)
             {
-                <div class="col-md-3 col-sm-4 col-6" id="products" style="text-align:center;">
+                <div class="col-md-3 col-sm-4 col-6" id="products" style="text-align:center; margin-bottom:10px;">
                     <div class="item-product">
                         <div class="hinhanhsanpham">
                             <a href="@Url.Action("Details", "SanPham", new { id = sp.MaSP })"><img src="~/Content/image/@sp.HinhAnh" style="max-height:200px" width="200px" /></a>

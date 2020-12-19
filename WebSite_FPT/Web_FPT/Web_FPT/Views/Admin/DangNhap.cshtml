@@ -17,12 +17,16 @@
                     <div class="group">
                         <label for="user" class="label">Tên đăng nhập</label>
                         <input id="user" name="userName" type="text" class="input" placeholder="Tên đăng nhập...">
-                        @ViewData["Loi1"]
+                        <div style="color:white;">
+                            @ViewData["Loi1"]
+                        </div>
                     </div>
                     <div class="group">
                         <label for="pass" class="label" placeholder="Nhập mật khẩu...">Mật khẩu</label>
                         <input id="pass" name="password" type="password" class="input" data-type="password" placeholder="Mật khẩu...">
-                        @ViewData["Loi2"]
+                        <div style="color:black;">
+                            @ViewData["Loi2"]
+                        </div>
                     </div>
                     <div class="group">
                         <input id="check" type="checkbox" class="check" checked>
@@ -30,6 +34,9 @@
                     </div>
                     <div class="group">
                         <input type="submit" class="button" value="ĐĂNG NHẬP">
+                    </div>
+                    <div style="color:white;">
+                        @ViewData["Loi"]
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">

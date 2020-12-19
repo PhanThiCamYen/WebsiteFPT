@@ -204,7 +204,6 @@
       <DependentUpon>FPTDBContext.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\GioHang.cs" />
-    <Compile Include="Models\PhanQuyen.cs" />
     <Compile Include="Models\SoLuongSanPham.cs" />
     <Compile Include="Models\SP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -551,6 +550,7 @@
     <Content Include="Views\Shared\DangNhap.cshtml" />
     <Content Include="Views\Shared\QuanLy.cshtml" />
     <Content Include="Views\TraGop\TraGopSP.cshtml" />
+    <Content Include="Views\Home\GioiThieu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

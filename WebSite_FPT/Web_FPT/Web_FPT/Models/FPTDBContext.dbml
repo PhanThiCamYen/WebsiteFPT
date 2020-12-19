@@ -43,9 +43,18 @@
   </Table>
   <Table Name="dbo.ChucVu" Member="ChucVus">
     <Type Name="ChucVu">
-      <Column Name="MaPQ" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaPQ" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenChucVu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="ChucVu_NhanVien" Member="NhanViens" ThisKey="MaPQ" OtherKey="MaPQ" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Hang" Member="Hangs">
+    <Type Name="Hang">
+      <Column Name="MaHang" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenHang" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MaNhomSP" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Association Name="Hang_SanPham" Member="SanPhams" ThisKey="MaHang" OtherKey="MaHang" Type="SanPham" />
+      <Association Name="NhomSanPham_Hang" Member="NhomSanPham" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="NhomSanPham" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.HoaDon" Member="HoaDons">
@@ -124,7 +133,7 @@
       <Column Name="SDTNV" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DiaChiNV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MatKhauNV" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="MaPQ" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="MaPQ" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
       <Association Name="NhanVien_HoaDon" Member="HoaDons" ThisKey="MaNV" OtherKey="MaNV" Type="HoaDon" />
       <Association Name="NhanVien_PhieuNhap" Member="PhieuNhaps" ThisKey="MaNV" OtherKey="MaNV" Type="PhieuNhap" />
       <Association Name="ChucVu_NhanVien" Member="ChucVu" ThisKey="MaPQ" OtherKey="MaPQ" Type="ChucVu" IsForeignKey="true" />
@@ -134,6 +143,7 @@
     <Type Name="NhomSanPham">
       <Column Name="MaNhomSP" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenNSP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="NhomSanPham_Hang" Member="Hangs" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="Hang" />
       <Association Name="NhomSanPham_SanPham" Member="SanPhams" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="SanPham" />
     </Type>
   </Table>
@@ -160,6 +170,7 @@
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="ThoiGianBH" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="MaNhomSP" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="MaHang" Type="System.String" DbType="Char(5)" CanBeNull="true" />
       <Association Name="SanPham_BaoHanh" Member="BaoHanhs" ThisKey="MaSP" OtherKey="MaSP" Type="BaoHanh" />
       <Association Name="SanPham_TraGop" Member="TraGops" ThisKey="MaSP" OtherKey="MaSP" Type="TraGop" />
       <Association Name="SanPham_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="MaSP" OtherKey="MaSP" Type="ChiTietHoaDon" />
@@ -169,6 +180,7 @@
       <Association Name="SanPham_LaiSuat" Member="LaiSuats" ThisKey="MaSP" OtherKey="MaSP" Type="LaiSuat" />
       <Association Name="SanPham_ThanhToan" Member="ThanhToans" ThisKey="MaSP" OtherKey="MaSP" Type="ThanhToan" />
       <Association Name="SanPham_ThongKe" Member="ThongKes" ThisKey="MaSP" OtherKey="MaSP" Type="ThongKe" />
+      <Association Name="Hang_SanPham" Member="Hang" ThisKey="MaHang" OtherKey="MaHang" Type="Hang" IsForeignKey="true" />
       <Association Name="NhomSanPham_SanPham" Member="NhomSanPham" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="NhomSanPham" IsForeignKey="true" />
     </Type>
   </Table>

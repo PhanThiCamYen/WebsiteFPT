@@ -29,6 +29,10 @@ namespace Web_FPT.Controllers
             var sanpham = LaySanPhamHot();
             return View(sanpham);
         }
+        public ActionResult GioiThieu()
+        {
+            return View();
+        }
         
     }
 }
