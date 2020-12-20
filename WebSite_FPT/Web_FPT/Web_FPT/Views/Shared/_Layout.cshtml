@@ -11,8 +11,12 @@
     <link href="~/Content/CSS/css.css" rel="stylesheet" />
     <link href="~/Content/CSS/css2.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
-    <script src="https://kit.fontawesome.com/6b02239e17.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <script src="@Url.Content("~/Scripts/jquery-3.5.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="https://kit.fontawesome.com/6b02239e17.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -26,15 +30,17 @@
                                     <img src="~/Content/Img_Show/QC.PNG/logo.png" style="max-height:80px;" width="200px" />
                                 </a>
                                 <div class="collapse navbar-collapse" id="myNavbar">
-                                    <ul class="navbar-nav mr-auto">
-                                        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-inline my-1 my-lg-0" }))
+                                    <ul class="navbar-nav w-100">
+                                        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
                                         {
-                                            <input class="form-control" type="search" id="id" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" style="width:400px;">
-                                            <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:40px;text-align:center;background-color:black;border:1px solid black;">
+                                            <input class="form-control w-100" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" />
+                                            <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:38px;text-align:center;background-color:black;border:1px solid black;">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         }
                                     </ul>
+                                    <div class="box-content-search">
+                                    </div>
                                 </div>
                                 <div class="menu-item">
                                     <i style="color:white;" class="fa fa-store"></i>
@@ -80,9 +86,9 @@
                                 <a style="color:#fff;">@Html.ActionLink("TABLET", "SanPhamTabLet", "SanPham") </a>
                                 <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-headphones-alt"></i>
                                 <a style="color:#fff;">@Html.ActionLink("PHỤ KIỆN", "SanPhamPhuKien", "SanPham")</a>
-                                <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-headphones-alt"></i>
+                                <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-percent"></i>
                                 <a style="color:#fff;">@Html.ActionLink("KHUYẾN MÃI", "SanPhamPhuKien", "SanPham")</a>
-                                <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-headphones-alt"></i>
+                                <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-piggy-bank"></i>
                                 <a style="color:#fff;">@Html.ActionLink("TRẢ GÓP", "TraGopSP", "TraGop")</a>
                             </div>
                         </div>
@@ -148,8 +154,39 @@
     </div>
 
     @*@*@*
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>*@*@*@
+
+    <script>
+        function fnSearch(item) {
+            var valInput = $(item).val().trim();
+            setTimeout(function () {
+                $.ajax({
+                    url: '@Url.Action("GetDataSearch", "TimKiem")',
+                    dataType: "json",
+                    data: { value: valInput },
+                    type: "POST",
+                    success: function (result) {
+                        $(".box-content-search").html('');
+                        for (var i = 0; i < result.length; i++) {
+                            $(".box-content-search").append('<div class="w-100 item-search">' + result[i].TenSP + '</div>');
+                            console.log(result[i].TenSP);
+                        }
+                        if (result.length == 0) {
+                            $(".box-content-search").append('<div class="w-100 text-center">Không có dữ liệu</div>');
+                        }
+                        if (valInput != "") {
+                            $(".box-content-search").show();
+                        } else {
+                            $(".box-content-search").hide();
+                        }
+                    },
+                });
+            }, 500);
+           
+
+        }
+    </script>
 </body>
 </html>

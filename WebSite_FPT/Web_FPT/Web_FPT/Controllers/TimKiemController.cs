@@ -30,6 +30,21 @@ namespace Web_FPT.Controllers
 
         }
 
+        public ActionResult GetDataSearch(string value)
+        {
+            var sp = GetTopDataProduct(value);
+            var list = new List<SanPham>();
+            foreach (var item in sp)
+            {
+                list.Add(new SanPham
+                {
+                    TenSP = item.TenSP,
+                    MaSP = item.MaSP
+                });
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
         private List<SanPham> laySanPhamTimKiem(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -37,6 +52,15 @@ namespace Web_FPT.Controllers
                 return fpt.SanPhams.Where(a => a.TenSP.ToLower().Contains("@(*&@*($&@*&$*(@$&(*@$&(@&$(*!&$*(&$")).ToList();
             }
             return fpt.SanPhams.Where(a => a.TenSP.Contains(id)).ToList();
+        }
+
+        private List<SanPham> GetTopDataProduct(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return fpt.SanPhams.Where(a => a.TenSP.ToLower().Contains("@(*&@*($&@*&$*(@$&(*@$&(@&$(*!&$*(&$")).ToList<SanPham>();
+            }
+            return fpt.SanPhams.Where(a => a.TenSP.Contains(id)).Take(10).ToList<SanPham>();
         }
 
     }

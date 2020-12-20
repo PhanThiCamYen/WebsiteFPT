@@ -6,12 +6,12 @@
 }
 <div class="container">
     <div class="card-body">
-        <form class="form-horizontal" method="post" action="#">
+        <form class="form-horizontal" method="post" action="/GioHang/xacnhanDonHangThanhCong" id="formTT"> @*@using(Html.BeginForm(xacnhanDonHangThanhCong, GioHang,FormMethod.Post,new { }))*@
             <div class="form-group">
                 <label for="name" class="cols-sm-2 control-label" style="font-size:17px;">1. Họ và Tên Khách Hàng*</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        @Html.TextBox("HOTENKH", null, new { @class = "form-control", @placeholder = "Nhập họ tên của bạn" })
+                        @Html.TextBox("HOTENKH", null, new {  @class = "form-control w-100", @placeholder = "Nhập họ tên của bạn" })
                     </div>
                     <div style="color:red">
                         @ViewData["Loi1"]
@@ -22,7 +22,7 @@
                 <label for="email" class="cols-sm-2 control-label" style="font-size:17px;">2. Số Điện Thoại*</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        @Html.TextBox("SDT", null, new { @class = "form-control", @placeholder = "Nhập số điện thoại của bạn" })
+                        @Html.TextBox("SDT", null, new { @type = "number", @class = "form-control w-100", @placeholder = "Nhập số điện thoại của bạn", @maxlength = "10" })
                     </div>
                     <div style="color:red">
                         @ViewData["Loi2"]
@@ -33,7 +33,7 @@
                 <label for="email" class="cols-sm-2 control-label" style="font-size:17px;">3. Email*</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        @Html.TextBox("EMAIL", null, new { @class = "form-control", @placeholder = "Nhập email của bạn" })
+                        @Html.TextBox("EMAIL", null, new { @class = "form-control w-100", @placeholder = "Nhập email của bạn" })
                     </div>
                     <div style="color:red">
                         @ViewData["Loi3"]
@@ -76,14 +76,14 @@
                 <div class="cols-sm-10">
                     <div class="phuongthucthanhtoan" style="padding-left:50px">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="defaultChecked3" name="phuongthucthanhtoan" value="Thanh toán trực tiếp khi nhận hàng" checked="checked">
-                            <label class="custom-control-label" for="defaultChecked3">
+                            <input type="radio" class="custom-control-input" id="defaultChecked3" name="phuongthucthanhtoan" value="0" checked="checked">
+                            <label class="custom-control-label" for="defaultChecked3" onclick="fnSelectPTTT()">
                                 <span style="color:#26BC4E;font-weight:600;">Thanh toán tiền mặt khi nhận hàng tại nhà</span>
                             </label>
                         </div>
                         <div class="custom-control custom-radio" style="padding-top:10px">
-                            <input type="radio" class="custom-control-input" id="defaultChecked4" name="phuongthucthanhtoan" value="Thanh toán qua thẻ ngân hàng">
-                            <label class="custom-control-label" for="defaultChecked4">
+                            <input type="radio" class="custom-control-input" id="defaultChecked4" name="phuongthucthanhtoan" value="1">
+                            <label class="custom-control-label" for="defaultChecked4"  onclick="fnSelectPTTT()">
                                 <span style="color:#26BC4E;font-weight:600;">Thanh toán qua chuyển khoản tại các hệ thống ngân hàng</span>
                             </label>
                             <script language="javascript">
@@ -96,7 +96,7 @@
                                 }
 
                             </script>
-                            <div style="padding-left:45px" id="thethanhtoan">
+                            <div style="padding-left:45px;display:none" id="thethanhtoan">
                                 <a class="navbar-brand" href="#">
                                     <img src="~/Content/Img_Show/aripay.jpg" style="max-height:150px;" width="110px" />
                                 </a>
@@ -110,10 +110,50 @@
             </div>
 
             <div class="form-group ">
-                <div style="text-align:center;;padding-left: 44% !important;">
+                <div style="text-align:center;padding-left: 44% !important;">
                     <button type="submit" style="width:150px;" class="btn btn-primary btn-lg btn-block login-button">TIẾP TỤC</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<script>
+    function fnSelectPTTT() {
+        var valuePTTT = $('input[name="phuongthucthanhtoan"]:checked').val();
+        if (valuePTTT == "1") {
+            $("#thethanhtoan").hide();
+        } else {
+            $("#thethanhtoan").show();
+        }
+    }
+    var fromTT = $("#formTT");
+    fromTT.validate({
+        rules: {
+            "SDT": {
+                required: true,
+                maxlength: 10
+            },
+            "HOTENKH": {
+                required: true,
+            },
+            "EMAIL": {
+                email: true
+            }
+        },
+        messages: {
+            "SDT": {
+                required: "Bắt buộc nhập sô điện thoại",
+                maxlength: "Hãy nhập tối đa 10 ký tự"
+            },
+            "HOTENKH": {
+                required: "Bắt buộc nhập họ tên",
+            },
+            "EMAIL": {
+                email: "Sai định dạng vd:abc123@gmail.com"
+            }
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+</script>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web_FPT.Models;
+using Web_FPT.Common;
 using System.Text.RegularExpressions;
 
 
@@ -339,11 +340,31 @@ namespace Web_FPT.Controllers
         //    return View(confirm);
 
         //}
-        public ActionResult xacnhanDonHangThanhCong()
+
+        public ActionResult xacnhanDonHangThanhCong(FormCollection collection)
         {
+
+
+            string hoten = collection["HOTENKH"];
             if (LayGioHang() != null)
             {
+                //Gửi mail
+                string smtpUserName = "nguyenkimphung.060699@gmail.com";
+                string smtpPassword = "phung99**";
+                string smtpHost = "smtp.gmail.com";
+                int smtpPort = 587;
+
+                string emailTo = collection["EMAIL"];
+                string subject = "Đơn hàng vừa mua";
+                string body = string.Format("Bạn vừa nhận được liên hê từ: <b>{0}</b><br/>Email: {1}<br/>Cảm ơn bạn đã mua hàng tại website", "Admin ", "");
+
+                EmailService service = new EmailService();
+                bool kq = service.Send(smtpUserName, smtpPassword, smtpHost, smtpPort, emailTo, subject, body);
+                //Session[CartSession.CartSesstion] = null;
+                //message = 1;
+
                 LayGioHang().RemoveRange(0, LayGioHang().Count);
+
             }
             return RedirectToAction("Index", "Home");
         }        
