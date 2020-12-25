@@ -11,9 +11,9 @@
              style="padding-left:20%">
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="navbar-nav w-100">
-                    @using (Html.BeginForm("Admin", "Admin", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
+                    @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
                     {
-                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                        <input class="form-control w-100" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" />
                         <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:38px;text-align:center;background-color:black;border:1px solid black;">
                             <i class="fas fa-search"></i>
                         </button>

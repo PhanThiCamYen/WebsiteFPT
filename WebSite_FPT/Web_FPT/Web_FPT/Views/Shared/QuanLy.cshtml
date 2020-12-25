@@ -36,24 +36,14 @@
                                 <a>
                                     Sản phẩm
                                 </a>
-                                @foreach(SanPham item in Model)
-                                {
-                                    NhomSanPham nsp1 = new NhomSanPham();
-                                    <ul>
-                                        <li>
-                                            @*<a href="@Url.Action("nhomSanPham", "Admin", new {@nsp = item.MaNhomSP})">@nsp1.TenNSP</a>*@
-                                            @Html.ActionLink(" " + nsp1.TenNSP, "nhomSanPham", "Admin", new { @nhomsp = @item.MaNhomSP });
-                                        </li>
-                                    </ul>
-                                }
-                                @*<ul>
+                                <ul>
                                     <li>@Html.ActionLink("Điện thoại", "Admin", "Admin")</li>
                                     <li>@Html.ActionLink("LapTop", "Admin", "Admin")</li>
                                     <li>@Html.ActionLink("Đồng Hồ", "FilterAdminLaptop", "Admin")</li>
                                     <li>@Html.ActionLink("Lablet", "Admin", "Admin")</li>
                                     <li>@Html.ActionLink("Phụ Kiện", "Admin", "Admin")</li>
                                     <li>@Html.ActionLink("Sim Thẻ", "Admin", "Admin")</li>
-                                </ul>*@
+                                </ul>
                             </li>
                             <li><a><span>@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</span></a></li>
                             <li><a><span>@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</span></a></li>

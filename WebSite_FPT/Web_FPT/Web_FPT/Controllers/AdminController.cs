@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web_FPT.Models;
+using System.Data.Linq.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Web_FPT.Controllers
 {
@@ -338,14 +340,14 @@ namespace Web_FPT.Controllers
         }
         public ActionResult Sua_NV(string manv)
         {
-            if(manv != null)
+            if (manv != null)
             {
                 var sua_nv = fpt.NhanViens.First(nv => nv.MaNV == manv);
                 var l_sp = from lsp in fpt.ChucVus select lsp;
                 ViewData["ChucVu"] = new SelectList(fpt.NhanViens, "MaNV", "MaNV");
                 return View(sua_nv);
             }
-            return View();
+            return RedirectToAction("NhanVien", "Admin");
         }
         [HttpPost]
         public ActionResult Sua_NV(string manv, FormCollection collection)
@@ -355,10 +357,10 @@ namespace Web_FPT.Controllers
             var s_gioitinhNV = collection["gioitinhNV"];
             var s_ngaysinhNV = collection["ngaysinhNV"];
             var s_emailNV = collection["emailNV"];
-            var s_sodienthoaiNV = collection["sodienthoaiNV"];
-            var s_diachiNV = collection["diachiNV"];
+            var s_sodienthoaiNV = collection["sdtNV"];
+            var s_diachiNV = collection["diaChiNV"];
             var s_matkhauNV = collection["matkhauNV"];
-            var s_maPQ = collection["maPQ"];
+            //var s_maPQ = collection["maPQ"];
             s_manv.MaNV = manv;
             String gioiTinh = "";
             if (string.IsNullOrEmpty(s_tenNV))
@@ -391,11 +393,10 @@ namespace Web_FPT.Controllers
                     (s_sodienthoaiNV);
                 s_manv.DiaChiNV = s_diachiNV;
                 s_manv.MatKhauNV = s_matkhauNV;
-                s_manv.MaPQ = s_maPQ;
+                //s_manv.MaPQ = s_maPQ;
                 UpdateModel(manv);
                 fpt.SubmitChanges();
                 return RedirectToAction("Admin", "Admin");
-
             }
             return this.Sua_NV(manv);
         }
@@ -433,7 +434,7 @@ namespace Web_FPT.Controllers
         public ActionResult SuaNhomSP(string mansp, FormCollection collection)
         {
             var sn_mansp = fpt.NhomSanPhams.First(nsp => nsp.MaNhomSP == mansp);
-            var sn_tennhomsanpham = collection["tennhomsanpham"];
+            var sn_tennhomsanpham = collection["tennsp"];
             
 
 
@@ -469,7 +470,6 @@ namespace Web_FPT.Controllers
             fpt.SubmitChanges();
             return RedirectToAction("NhomSP", "Admin");
         }
-
     }
 
 }
