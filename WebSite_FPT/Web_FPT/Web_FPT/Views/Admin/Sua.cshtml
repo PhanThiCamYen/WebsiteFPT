@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Sua";
     Layout = "~/Views/Shared/QuanLy.cshtml";
 }
@@ -26,22 +25,22 @@
                 <input style="text-align:center" type="text" class="form-control" name="giaban" placeholder="Nhập Số Lượng Giá Bán" value="@Model.GiaBan">
             </div>
         </div>
-        <div class="file btn btn-lg btn-secondary" id="upload">
+        <div class="form-group row" style="text-align:center; id="upload">
             Chọn hình
             <input id="upload2" type="file" name="file" value="@Model.HinhAnh" />
         </div>
-        <div class="form-group row">
+        @*<div class="form-group row">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Mô tả</label>
             <div class="col-sm-4">
                 <input style="text-align:center" type="text" class="form-control" name="mota" placeholder="Mô Tả Sản Phẩm" value="@Model.MoTa">
             </div>
-        </div>
-        <div class="form-group row">
+        </div>*@
+        @*<div class="form-group row">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Thời gian bảo hành</label>
             <div class="col-sm-4">
                 <input style="text-align:center" type="text" class="form-control" name="thoigianBH" placeholder="Thời Gian Bảo Hành Sản Phẩm" value="@Model.ThoiGianBH">
             </div>
-        </div>        
+        </div>*@        
         <div style="align-items:center">
             <input type="submit" class="btn btn-secondary" value="Lưu" style="width:120px;height:49px; " />
         </div>

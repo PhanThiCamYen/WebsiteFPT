@@ -52,9 +52,7 @@ namespace Web_FPT.Controllers
         {
             if (Session["AdminIsLogin"] != null)
             {
-                //var sp = fpt.SanPhams.Where(sp => sp.MaNhomSP == "DT").ToList();
                 var sp = fpt.SanPhams.ToList();
-                //var sp = LayDT();
                 return View(sp);
             }
             else
@@ -63,12 +61,11 @@ namespace Web_FPT.Controllers
             }
         }
 
-        //public List<SanPham> LayDT()
-        //{
-        //    var sp_dt = fpt.SanPhams.Where(sp => sp.MaNhomSP == "DT").ToList();
-        //    return sp_dt;
-        //}
-
+        public ActionResult nhomSanPham(string nhomsp)
+        {
+            var lsp = fpt.SanPhams.Where(sp => sp.MaNhomSP == nhomsp).ToList();
+            return View(lsp);
+        }
         public ActionResult Them()
         {
             var l_sp = from lsp in fpt.SanPhams select lsp;
@@ -172,7 +169,7 @@ namespace Web_FPT.Controllers
         {
             var sua_sp = fpt.SanPhams.First(sp => sp.MaSP == masp);
             var l_sp = from lsp in fpt.NhomSanPhams select lsp;
-            ViewData["NhomSanPham"] = new SelectList(fpt.SanPhams, "MaNhomSP", "MaNhomSP");
+            ViewData["NhomSanPham"] = new SelectList(fpt.SanPhams, "MaSP", "MaSP");
             return View(sua_sp);
         }
         [HttpPost]

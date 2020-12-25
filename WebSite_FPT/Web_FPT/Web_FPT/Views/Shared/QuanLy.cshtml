@@ -32,15 +32,28 @@
                             <li class='home'><span class='close-menu' style='font-size:26px;font-weight:400;position:relative' title='Close'>&#8801; <span style='font-size:18px;font-weight:700;position:absolute;top:17px;left:33px'>Danh Muc Quản Lý</span></span></li>
                             <li>@Html.ActionLink("Nhóm Sản Phẩm", "NhomSP", "Admin")</li>
                             <li class='has-sub'>
-                                @Html.ActionLink("Sản Phẩm", "Admin", "Admin")
-                                <ul>
+                                @*@Html.ActionLink("Sản Phẩm", "Admin", "Admin")*@
+                                <a>
+                                    Sản phẩm
+                                </a>
+                                @foreach(SanPham item in Model)
+                                {
+                                    NhomSanPham nsp1 = new NhomSanPham();
+                                    <ul>
+                                        <li>
+                                            @*<a href="@Url.Action("nhomSanPham", "Admin", new {@nsp = item.MaNhomSP})">@nsp1.TenNSP</a>*@
+                                            @Html.ActionLink(" " + nsp1.TenNSP, "nhomSanPham", "Admin", new { @nhomsp = @item.MaNhomSP });
+                                        </li>
+                                    </ul>
+                                }
+                                @*<ul>
                                     <li>@Html.ActionLink("Điện thoại", "Admin", "Admin")</li>
                                     <li>@Html.ActionLink("LapTop", "Admin", "Admin")</li>
-                                    <li><a><span>Đồng Hồ</span></a></li>
-                                    <li><a><span>Lablet</span></a></li>
-                                    <li><a><span>Phụ Kiện</span></a></li>
-                                    <li><a><span>Sim Thẻ</span></a></li>
-                                </ul>
+                                    <li>@Html.ActionLink("Đồng Hồ", "FilterAdminLaptop", "Admin")</li>
+                                    <li>@Html.ActionLink("Lablet", "Admin", "Admin")</li>
+                                    <li>@Html.ActionLink("Phụ Kiện", "Admin", "Admin")</li>
+                                    <li>@Html.ActionLink("Sim Thẻ", "Admin", "Admin")</li>
+                                </ul>*@
                             </li>
                             <li><a><span>@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</span></a></li>
                             <li><a><span>@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</span></a></li>

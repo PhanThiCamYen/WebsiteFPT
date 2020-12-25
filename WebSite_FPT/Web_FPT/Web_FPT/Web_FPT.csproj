@@ -465,6 +465,7 @@
     <Content Include="Content\Img_Show\momo.jpg" />
     <Content Include="Content\Img_Show\nganhangNCB.jpg" />
     <Content Include="Content\Img_Show\nganhangOCB.png" />
+    <Content Include="Content\Img_Show\QC.GioiThieu\a.jpg" />
     <Content Include="Content\Img_Show\QC.GioiThieu\GT1.jpg" />
     <Content Include="Content\Img_Show\QC.GioiThieu\GT2.jpg" />
     <Content Include="Content\Img_Show\QC.GioiThieu\GT3.png" />
@@ -610,6 +611,7 @@
     <Content Include="Views\TraGop\TraGop.cshtml" />
     <Content Include="Views\KhuyenMai\KhuyenMai.cshtml" />
     <Content Include="Views\SanPham\SanPhamSimThe.cshtml" />
+    <Content Include="Views\Admin\nhomSanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

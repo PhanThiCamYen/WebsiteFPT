@@ -6,12 +6,13 @@
 }
 <div class="header-content1">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light"
+             style="padding-left:20%">
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="navbar-nav w-100">
                     @using (Html.BeginForm("Admin", "Admin", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
                     {
-                        <input class="form-control" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:30%" />
+                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
                         <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:38px;text-align:center;background-color:black;border:1px solid black;">
                             <i class="fas fa-search"></i>
                         </button>
@@ -26,7 +27,7 @@
                     <form class="modal-content animate" action="/action_page.php" method="post">
                         <div class="imgcontainer">
                             <span onclick="document.getElementById('themsp').style.display='none'" class="close" title="Close Modal">&times;</span>
-                           
+
                         </div>
 
                         <div class="container">
@@ -45,19 +46,48 @@
                     </form>
                 </div>
 
-                
+
             </div>
         </nav>
     </div>
 </div>
 <div class="container">
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <table class="table">
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: black;
+                color: white;
+            }
+    </style>
+    <table id="customers" class="table">
         <thead>
             <tr>
                 <th style="text-align:center;">Mã Sản Phẩm</th>
                 <th style="text-align:center;"> Số Lượng Tồn</th>
                 <th style="text-align:center;">Loại Kệ</th>
+                <th style="width: 1%;" text-align:center;>Sửa</th>
+                <th style="width: 1%;" text-align:center;>Xóa</th>
 
             </tr>
         </thead>
@@ -66,18 +96,21 @@
             {
                 foreach (Kho item in Model)
                 {
-            <tr>
-                <td style="text-align:center">@item.MaSP</td>
-                <td style="text-align:center">@item.SoLuongTon</td>
-                <td style="text-align:center">@item.LoaiKe</td>
-                <td>@Html.ActionLink("Sửa", "SuaKho", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
-                <td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
-            </tr>
-                }
-            }
+                    <tr>
+                        @*<td style="text-align:center; border: 1px solid #ddd; padding: 8px;"> </td>*@
+                        <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.MaSP</td>
+                        <td style="text-align:center; border: 1px solid #ddd; border: 1px solid #ddd;">@item.SoLuongTon</td>
+                        <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.LoaiKe </td>
+                        @*<td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@String.Format("{0:0,0}", item.GiaBan)</td>*@
+                        <td>@Html.ActionLink("Sửa", "SuaKho", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+                        <td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+                    </tr>
+                }          
+        }
 
-        </tbody>
-        
-    </table>
+            </tbody>
+
+        </table>
 </div>
+
 

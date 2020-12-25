@@ -50,24 +50,51 @@
     </div>
 </div>
 <div class="container">
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="text-align:center;">Mã Nhóm Sản Phẩm</th>
-               
-                <th style="text-align:center;">Tên Nhóm Sản Phẩm</th>
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
 
-            </tr>
-        </thead>
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: black;
+                color: white;
+            }
+    </style>
+    <table id="customers" class="table">
+        <tr>
+            <th style="width: 10%; text-align:center;">Mã Nhóm Sản Phẩm</th>
+
+            <th style="width: 10%; text-align:center;">Tên Nhóm Sản Phẩm</th>
+            <th style="width: 10%; text-align:center;">Sửa</th>
+
+            <th style="width: 10%; text-align:center;">Xóa</th>
+        </tr>
         <tbody>
             @if (Model != null)
             {
                 foreach (NhomSanPham item in Model)
                 {
                     <tr>
-                        <td style="text-align:center">@item.MaNhomSP</td>                      
-                        <td style="text-align:center">@item.TenNSP</td>
+                        <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.MaNhomSP</td>
+                        <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.TenNSP</td>
                         <td>@Html.ActionLink("Sửa", "SuaNhomSP", "Admin", new { mansp = @item.MaNhomSP }, new { @class = "btn btn-info" })</td>
                         <td>@Html.ActionLink("Xóa", "DeleteNhomSP", "Admin", new { mansp = @item.MaNhomSP }, new { @class = "btn btn-info" })</td>
                     </tr>
