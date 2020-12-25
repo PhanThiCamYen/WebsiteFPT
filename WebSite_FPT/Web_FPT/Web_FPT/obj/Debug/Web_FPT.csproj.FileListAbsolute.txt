@@ -156,6 +156,8 @@ C:\Users\DELL\Downloads\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csproj.Cop
 C:\Users\DELL\Downloads\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.dll
 C:\Users\DELL\Downloads\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.pdb
 C:\Users\DELL\Downloads\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csprojAssemblyReference.cache
+D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csproj.CoreCompileInputs.cache
+D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csprojAssemblyReference.cache
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\ApplicationInsights.config
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\roslyn\csc.exe
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\roslyn\csc.exe.config
@@ -230,8 +232,6 @@ D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\Microsoft.AI.DependencyCollector.xml
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\Microsoft.AI.WindowsServer.xml
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\bin\Microsoft.AI.Web.xml
-D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csproj.CoreCompileInputs.cache
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csproj.CopyComplete
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.dll
 D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.pdb
-D:\DATN_FPT\WebSite_FPT\Web_FPT\Web_FPT\obj\Debug\Web_FPT.csprojAssemblyReference.cache

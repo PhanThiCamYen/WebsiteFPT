@@ -76,14 +76,14 @@
                 <div class="cols-sm-10">
                     <div class="phuongthucthanhtoan" style="padding-left:50px">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="defaultChecked3" name="phuongthucthanhtoan" value="0" checked="checked">
+                            <input type="radio" class="custom-control-input" id="defaultChecked3" name="hinhthucthanhtoan" value="0" checked="checked">
                             <label class="custom-control-label" for="defaultChecked3" onclick="fnSelectPTTT()">
                                 <span style="color:#26BC4E;font-weight:600;">Thanh toán tiền mặt khi nhận hàng tại nhà</span>
                             </label>
                         </div>
                         <div class="custom-control custom-radio" style="padding-top:10px">
-                            <input type="radio" class="custom-control-input" id="defaultChecked4" name="phuongthucthanhtoan" value="1">
-                            <label class="custom-control-label" for="defaultChecked4"  onclick="fnSelectPTTT()">
+                            <input type="radio" class="custom-control-input" id="defaultChecked4" name="hinhthucthanhtoan" value="1">
+                            <label class="custom-control-label" for="defaultChecked4"  onclick="fnSelectHTTT()">
                                 <span style="color:#26BC4E;font-weight:600;">Thanh toán qua chuyển khoản tại các hệ thống ngân hàng</span>
                             </label>
                             <script language="javascript">
@@ -103,6 +103,27 @@
                                 <a class="navbar-brand" href="#">
                                     <img src="~/Content/Img_Show/momo.jpg" style="max-height:150px;" width="110px" />
                                 </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/VNPAY1.jpg" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/nganhangNCB.jpg" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/KienLongBank.png" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/nganhangOCB.png" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/SCB.png" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/SHB.png" style="max-height:150px;" width="110px" />
+                                </a>
+                                <a class="navbar-brand" href="#">
+                                    <img src="~/Content/Img_Show/TPBank.png" style="max-height:150px;" width="110px" />
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -118,7 +139,7 @@
     </div>
 </div>
 <script>
-    function fnSelectPTTT() {
+    function fnSelectHTTT() {
         var valuePTTT = $('input[name="phuongthucthanhtoan"]:checked').val();
         if (valuePTTT == "1") {
             $("#thethanhtoan").hide();

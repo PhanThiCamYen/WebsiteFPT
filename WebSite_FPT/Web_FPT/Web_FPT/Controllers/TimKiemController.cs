@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Web_FPT.Models;
 using System.Data.Linq.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Web_FPT.Controllers
 {
@@ -58,10 +59,18 @@ namespace Web_FPT.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return fpt.SanPhams.Where(a => a.TenSP.ToLower().Contains("@(*&@*($&@*&$*(@$&(*@$&(@&$(*!&$*(&$")).ToList<SanPham>();
+                return fpt.SanPhams.Where(a => a.TenSP.ToLower().Contains("@(*&@*($&@*&$*(@$&(*@$&(@&$(*!&$*(&$") && a.TenSP.ToLower().Contains(convertToUnSign3(id))).ToList<SanPham>();
             }
+            
             return fpt.SanPhams.Where(a => a.TenSP.Contains(id)).Take(10).ToList<SanPham>();
         }
+        public static string convertToUnSign3(string s)
+        {
+            Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+            string temp = s.Normalize(System.Text.NormalizationForm.FormD);
+            return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+        }
+
 
     }
 }

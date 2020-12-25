@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "SuaKho";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container"style="text-align:center;padding-left:20%">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <form>
+            <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Mã Sản Phẩm</label>
+                    <div class="col-sm-4">
+                      <input style="text-align:center" type="text" class="form-control" name="masanpham" placeholder="Mã Sản Phẩm" value="@Model.MaSP">
+                    </div>
+                </div>
+            
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Số lượng tồn</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="soluongton" placeholder="Nhập Số Lượng Tồn" value="@Model.SoLuongTon">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Loại kệ</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="loaike" placeholder="Loại Kệ Sản Phẩm" value="@Model.LoaiKe">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4" style="align-items:center">
+                    <input type="submit" class="btn btn-secondary" value="Lưu" style="width:120px;height:49px; " />
+                </div>
+            </div>
+        </form>
+
+    }
+
+</div>

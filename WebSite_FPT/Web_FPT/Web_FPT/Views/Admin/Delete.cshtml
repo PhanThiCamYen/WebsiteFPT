@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+
+<div class="container">
+    <table class="table table-bordered" style="text-align:center;">
+        <tr>
+            <td scope="col" style="width:25%;">Mã Sản Phẩm</td>
+            <td scope="col">@Html.Encode(Model.MaSP)</td>
+
+        </tr>
+        <tr>
+            <td scope="col" style="width:25%;">Tên Sản Phẩm</td>
+            <td scope="col">@Model.TenSP</td>
+        </tr>
+        <tr>
+            <td scope="col" style="width:25%;">Số Lượng</td>
+            <td scope="col">@Model.SoLuong</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Giá</td>
+            <td>@Model.GiaBan</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;padding-top: 10%;">Hình Ảnh</td>
+            <td colspan="2"><img src="~/Content/image/@Model.HinhAnh" style="max-height:200px" width="200px" /></td>
+
+        </tr>
+        @*<tr>
+            <td scope="row" style="width:25%;">Mô tả</td>
+            <td colspan="2">@Model.MoTa</td>
+
+        </tr>*@
+        @*<tr>
+            <td scope="row" style="width:25%;">Thời gian bảo hành</td>
+            <td colspan="2">@Model.ThoiGianBH</td>
+
+        </tr>*@
+    </table>
+    @using (Html.BeginForm())
+    {
+        <p style="text-align:center">
+            <input type="submit" value="Xoá" class="btn btn-secondary" />
+            @Html.ActionLink("Quay Lại.", "Admin", "Admin", null, new { @class = "btn btn-secondary" })
+        </p>
+    }
+</div>
+

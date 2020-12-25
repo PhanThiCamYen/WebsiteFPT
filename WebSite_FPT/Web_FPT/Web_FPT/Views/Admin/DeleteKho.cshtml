@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "DeleteKho";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container">
+    <table class="table table-bordered" style="text-align:center;">
+        <tr>
+            <td scope="col" style="width:25%;">Mã Sản Phẩm</td>
+            <td scope="col">@Html.Encode(Model.MaSP)</td>
+
+        </tr>
+        <tr>
+            <td scope="col" style="width:25%;">Số Lượng Tồn</td>
+            <td scope="col">@Model.SoLuongTon</td>
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Loại Kệ</td>
+            <td colspan="2">@Model.LoaiKe</td>
+
+        </tr>
+    </table>
+    @using (Html.BeginForm())
+    {
+        <p style="text-align:center">
+            <input type="submit" value="Xoá" class="btn btn-secondary" />
+            @Html.ActionLink("Quay Lại.", "Kho", "Admin", null, new { @class = "btn btn-secondary" })
+        </p>
+    }
+</div>
+
+
+

@@ -1,4 +1,24 @@
-﻿
+﻿.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/*Với các item đổ xuống, chúng ta cho ẩn đi bằng display block*/
+/*sub-menu*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f5f5f5;
+    z-index: 1;
+    list-style: none;
+}
+
+/*Khi hover vào sẽ hiện ra khi set thuộc tính display: block*/
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .item-product {
     background-color: #fff;
     padding: 15px;
@@ -101,14 +121,14 @@ tr:nth-child(even) {
     z-index: 10;
     width: calc(100% - 50px);
     display: none;
-    padding:5px;
-    border-radius:6px
+    padding: 5px;
+    border-radius: 6px
 }
 
 .item-search {
     padding: 5px;
     border-bottom: .5px solid rgba(0,0,0,.1);
-    cursor:pointer;
+    cursor: pointer;
 }
 
     .item-search:hover {

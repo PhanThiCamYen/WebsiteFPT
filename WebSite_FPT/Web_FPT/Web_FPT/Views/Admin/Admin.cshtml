@@ -5,20 +5,92 @@
     ViewBag.Title = "Admin";
     Layout = "~/Views/Shared/QuanLy.cshtml";
 }
+<div class="header-content1">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-light"
+             style="padding-left:20%">
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="navbar-nav w-100">
+                    @using (Html.BeginForm("Admin", "Admin", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
+                    {
+                        <input class="form-control" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:30%" />
+                        <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:38px;text-align:center;background-color:black;border:1px solid black;">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    }
+                </ul>
+            </div>
+            <div style="padding-left: 20px">
+                <button type="button" class="btn btn-info" onclick="document.getElementById('themsp').style.display='block'" style="width:auto;">Thêm</button>
 
+                <div id="themsp" class="modal">
+
+                    <form class="modal-content animate" action="/action_page.php" method="post">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('themsp').style.display='none'" class="close" title="Close Modal">&times;</span>
+                            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+                        </div>
+                        <div class="container">
+                            <label for="Masp"><b>Mã Sản Phẩm</b></label>
+                            <input type="text" placeholder="Nhập mã sản phẩm" name="Masp" required>
+
+                            <label for="Tensp"><b>Tên Sản Phẩm</b></label>
+                            <input type="text" placeholder="Nhập tên sản phẩm" name="Tensp" required>
+
+                            <label for="Soluong"><b>Số Lượng</b></label>
+                            <input type="text" placeholder="Nhập số lượng sản phẩm" name="Soluong" required>
+
+                            <label for="Giaban"><b>Giá Bán</b></label>
+                            <input type="text" placeholder="Nhập giá sản phẩm" name="Giaban" required>
+
+                            <label for="Mota"><b>Mô Tả</b></label>
+                            <input type="text" placeholder="Nhập mã sản phẩm" name="Mota" required>
+
+                            <label for="TGBH"><b>Thời Gian BH</b></label>
+                            <input type="text" placeholder="Nhập thời gian bảo hành của sản phẩm" name="TGBH" required>
+
+                            <label for="Hinhanh"><b>Hình Ảnh</b></label>
+                            <input type="text" placeholder="Nhập ten sản phẩm" name="Hinhanh" required>
+
+                            <button type="submit">Thêm</button>
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember"> Remember me
+                            </label>
+                        </div>
+                        <div class="container" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('themsp').style.display='none'" class="cancelbtn">Trở về</button>
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                    // Get the modal
+                    var modal = document.getElementById('themsp');
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                </script>
+            </div>
+        </nav>
+    </div>
+</div>
 <div class="container">
+
     <table class="table">
         <thead>
             <tr>
-                <th style="text-align:center; width: 200px;">Ảnh</th>
-                <th style="text-align:center; width: 145px;">Mã Sản Phẩm</th>
-                <th style="text-align:center; width: 145px;">Tên Sản Phẩm</th>
-                <th style="text-align:center; width: 145px;">Số Lượng</th>
-                <th style="text-align:center;width: 145px;">Giá Bán</th>
-                <th style="text-align:center;width: 145px;">Mô Tả</th>
-                <th style="text-align:center;width: 145px;">Thời Gian BH</th>
-                <th style="text-align:center;width: 120px;"></th>
-                <th style="text-align:center;width: 120px;"></th>
+                <th style="text-align:center;">Ảnh</th>
+                <th style="text-align:center;width:10%;">Mã Sản Phẩm</th>
+                <th style="text-align:center;"> Tên Sản Phẩm</th>
+                <th style="text-align:center;">Số Lượng</th>
+                <th style="text-align:center;">Giá Bán</th>
+                
+                <th style="text-align:center;"></th>
+                <th style="text-align:center;"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,19 +98,17 @@
             {
                 foreach (SanPham item in Model)
                 {
-            <tr>
-                <td style="text-align:center"><img src="~/Content/image/@item.HinhAnh" width="150px" height="150px" /></td>
-                <td style="text-align:center">@item.MaSP</td>
-                <td style="text-align:center">@item.TenSP</td>
-                <td style="text-align:center">@item.SoLuong </td>
-                <td style="text-align:center">@String.Format("{0:0,0}", item.GiaBan)</td>
-                <td style="text-align:center">@item.MoTa</td>
-                <td style="text-align:center">@item.ThoiGianBH</td>
-                @*<td style="text-align:center"><a href="#" class="">Sửa</a></td>*@
-                <td><button type="button" class="btn btn-info">Sửa</button></td>
-                @*<td style="text-align:center"><a href="#">Xoá</a></td>*@
-                <td><button type="button" class="btn btn-danger">Xóa</button></td>
-            </tr>
+                    <tr>
+                        <td style="text-align:center"><img src="~/Content/image/@item.HinhAnh" width="150px" height="150px" /></td>
+                        <td style="text-align:center">@item.MaSP</td>
+                        <td style="text-align:center">@item.TenSP</td>
+                        <td style="text-align:center">@item.SoLuong </td>
+                        <td style="text-align:center">@String.Format("{0:0,0}", item.GiaBan)</td>
+                     
+                        <td>@Html.ActionLink("Sửa", "Sua_NV", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+                        <td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+                        @*<td style="text-align:center" class="btn btn-info">@Html.ActionLink("Xóa", "Delete", new { masp = @item.MaSP })</td>*@
+                    </tr>
                 }
             }
 

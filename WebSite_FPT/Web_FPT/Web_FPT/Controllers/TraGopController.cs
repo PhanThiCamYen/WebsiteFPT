@@ -18,7 +18,7 @@ namespace Web_FPT.Controllers
         }
         private List<SanPham> laySPTraGop()
         {
-            return fpt.SanPhams.ToList(); 
+            return fpt.SanPhams.Where(sp => sp.GiaBan >= 3000000).ToList(); 
         }
     }
 }

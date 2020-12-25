@@ -66,10 +66,24 @@ namespace Web_FPT.Controllers
             var pk = laySanPhamPhuKien();
             return View(pk);
         }
+        /*Lấy Sản phẩm sim the*/
+        private List<SanPham> laySanPhamSimThe()
+        {
+            return fpt.SanPhams.Where(a => a.MaNhomSP == "S").ToList();
+        }
+        public ActionResult SanPhamSimThe()
+        {
+            var s = laySanPhamSimThe();
+            return View(s);
+        }
         public ActionResult Details(string id)
         {
-            var ctsp = fpt.SanPhams.First(a => a.MaSP == id);
-            return View(ctsp);
+            if( id!= null)
+            {
+                var ctsp = fpt.SanPhams.First(a => a.MaSP == id);
+                return View(ctsp);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

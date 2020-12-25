@@ -25,7 +25,7 @@
                     <i class="fa fa-star" style="color:#FFC120;"></i>
                     <i class="fa fa-star"></i>
                 </div>
-                <div class="row" style="padding-top:20px; border-bottom:1px solid #575757;font-weight:bold;color:#575757;font-size:20px">
+                @*<div class="row" style="padding-top:20px; border-bottom:1px solid #575757;font-weight:bold;color:#575757;font-size:20px">
                     <div class="description">
                         Thời Gian Bảo Hành: @Model.ThoiGianBH
                     </div>
@@ -37,12 +37,22 @@
                     <div class="box-remark">
                         <table>
                             <tr>
-                                <th id="thongso1">@Model.MoTa</th>
-                                <th>Contact</th>
+                                <td>@Model.MoTa</td>
                             </tr>
                             <tr>
-                                <td>Alfreds Futterkiste</td>
-                                <td>Maria Anders</td>
+                                <td id="thongso1">@Model.MoTa</td>
+                                <td>Contact</td>
+                            </tr>
+                            <tr>
+                                <td>Công nghệ màn hình</td>
+                                <td>
+                                    @*<script>
+                                        C(@Model.MoTa);
+                                    </script>
+                                    @*cho nay chua biet xu ly javascript
+                                    Console.WriteLine(@Model.MoTa);
+                                </td>
+                                @*<td>{@Model.MoTa.Split(";");}</td>
                             </tr>
                             <tr>
                                 <td>Centro comercial Moctezuma</td>
@@ -67,7 +77,7 @@
                         </table>
 
                     </div>
-                </div>
+                </div>*@
                 <div class="row">
                     <div class="datmua" style="padding-top:5px">
                         <a href="@Url.Action("ThemGioHang", "GioHang", new {@sMaSanPham = Model.MaSP,@strURL=Request.Url.ToString()})" onclick="return alert('Thêm sản phẩm vào giỏ hàng thành công.')">

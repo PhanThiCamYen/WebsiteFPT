@@ -12,8 +12,7 @@ namespace Web_FPT.Controllers
     {
         FPTDBContextDataContext fpt = new FPTDBContextDataContext();
 
-        private List<SanPham>
-           LaySanPhamHot()
+        private List<SanPham>LaySanPhamHot()
         {
             return fpt.SanPhams.Where(a => a.SoLuong >= 5 ).ToList();
 

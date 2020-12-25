@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "SuaNhomSP";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container" style="text-align:center;padding-left:20%">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <form>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Mã Nhóm Sản Phẩm</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" disabled stype="text" class="form-control" name="mansp" placeholder="Mã Nhóm Sản Phẩm" value="@Model.MaNhomSP">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Tên Nhóm Sản Phẩm</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="tennsp" placeholder="Tên Nhóm Sản Phẩm" value="@Model.TenNSP">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4" style="align-items:center">
+                    <input type="submit" class="btn btn-secondary" value="Lưu" style="width:120px;height:49px; " />
+                </div>
+            </div>
+        </form>
+
+    }
+
+</div>
+
+
+
