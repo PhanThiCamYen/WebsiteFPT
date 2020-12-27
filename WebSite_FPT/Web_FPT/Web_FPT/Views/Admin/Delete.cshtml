@@ -45,7 +45,7 @@
     {
         <p style="text-align:center">
             <input type="submit" value="Xoá" class="btn btn-secondary" />
-            @Html.ActionLink("Quay Lại.", "Admin", "Admin", null, new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Quay Lại.", "QL_SanPham", "Admin", new { mansp = Model.MaNhomSP }, new { @class = "btn btn-secondary" })
         </p>
     }
 </div>

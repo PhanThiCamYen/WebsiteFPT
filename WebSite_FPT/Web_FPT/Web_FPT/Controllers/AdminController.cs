@@ -63,11 +63,6 @@ namespace Web_FPT.Controllers
             }
         }
 
-        public ActionResult nhomSanPham(string nhomsp)
-        {
-            var lsp = fpt.SanPhams.Where(sp => sp.MaNhomSP == nhomsp).ToList();
-            return View(lsp);
-        }
         public ActionResult Them()
         {
             var l_sp = from lsp in fpt.SanPhams select lsp;
@@ -85,8 +80,8 @@ namespace Web_FPT.Controllers
             var soLuong = int.Parse(collection["SoLuong"]);
             var giaBan = int.Parse(collection["GiaBan"]);
             var hinhAnh = collection["HinhAnh"];
-            var moTa = collection["MoTa"];
-            var thoiGianBH = collection["ThoiGianBH"];
+            //var moTa = collection["MoTa"];
+            //var thoiGianBH = collection["ThoiGianBH"];
             var maNhomSP = collection["MaNhomSP"];
             var maHang = Request.Form["MaHang"];
             if (string.IsNullOrEmpty(maSP))
@@ -109,14 +104,14 @@ namespace Web_FPT.Controllers
             {
                 ViewData["Loi4"] = "Mã sản phẩm không được nhỏ hơn 0 !";
             }
-            else if (string.IsNullOrEmpty(moTa))
-            {
-                ViewData["Loi5"] = "Mã sản phẩm không được nhỏ hơn 0 !";
-            }
-            else if (string.IsNullOrEmpty(thoiGianBH))
-            {
-                ViewData["Loi5"] = "Mã sản phẩm không được nhỏ hơn 0 !";
-            }
+            //else if (string.IsNullOrEmpty(moTa))
+            //{
+            //    ViewData["Loi5"] = "Mã sản phẩm không được nhỏ hơn 0 !";
+            //}
+            //else if (string.IsNullOrEmpty(thoiGianBH))
+            //{
+            //    ViewData["Loi5"] = "Mã sản phẩm không được nhỏ hơn 0 !";
+            //}
             else if (string.IsNullOrEmpty(maNhomSP))
             {
                 ViewData["Loi6"] = "Mã sản phẩm không được nhỏ hơn 0 !";
@@ -417,10 +412,17 @@ namespace Web_FPT.Controllers
             return RedirectToAction("NhanVien", "Admin");
         }
 
-        public ActionResult NhomSP()
+        public ActionResult QL_SanPham(string mansp)
         {
-            var nsp = fpt.NhomSanPhams.ToList();
-            return View(nsp);
+            List<SanPham> list_sp = fpt.SanPhams.ToList();
+            List<SanPham> list_sp1 = list_sp.Where(sp => sp.MaNhomSP == mansp).ToList();
+            return View(list_sp1);
+        }
+
+        public ActionResult Lay_TenNhomSP()
+        {
+            List<NhomSanPham> lst_sp = fpt.NhomSanPhams.ToList();
+            return PartialView(lst_sp);
         }
 
         public ActionResult SuaNhomSP(string mansp)
@@ -470,6 +472,7 @@ namespace Web_FPT.Controllers
             fpt.SubmitChanges();
             return RedirectToAction("NhomSP", "Admin");
         }
+       
     }
 
 }

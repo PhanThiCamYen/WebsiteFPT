@@ -23,83 +23,31 @@
 </head>
 <body>
     <div class="row">
-            <div class="col col-lg-2">
-                <div class="menu" title="Menu"><span style="font-size:16px;position:absolute;top:1px;left:30px">Danh Mục</span> &#8801;
-                </div>
-                <div id='css-menu'>
-                    <div id='cssmenu'>
-                        <ul>
-                            <li class='home'><span class='close-menu' style='font-size:26px;font-weight:400;position:relative' title='Close'>&#8801; <span style='font-size:18px;font-weight:700;position:absolute;top:17px;left:33px'>Danh Muc Quản Lý</span></span></li>
-                            <li>@Html.ActionLink("Nhóm Sản Phẩm", "NhomSP", "Admin")</li>
-                            <li class='has-sub'>
-                                @*@Html.ActionLink("Sản Phẩm", "Admin", "Admin")*@
-                                <a>
-                                    Sản phẩm
-                                </a>
-                                <ul>
-                                    <li>@Html.ActionLink("Điện thoại", "Admin", "Admin")</li>
-                                    <li>@Html.ActionLink("LapTop", "Admin", "Admin")</li>
-                                    <li>@Html.ActionLink("Đồng Hồ", "FilterAdminLaptop", "Admin")</li>
-                                    <li>@Html.ActionLink("Lablet", "Admin", "Admin")</li>
-                                    <li>@Html.ActionLink("Phụ Kiện", "Admin", "Admin")</li>
-                                    <li>@Html.ActionLink("Sim Thẻ", "Admin", "Admin")</li>
-                                </ul>
-                            </li>
-                            <li><a><span>@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</span></a></li>
-                            <li><a><span>@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</span></a></li>
-                            <li><a><span>@Html.ActionLink("Khuyến Mãi", "NhanVien", "Admin")</span></a></li>
-                            <li><a><span>@Html.ActionLink("Kho", "Kho", "Admin")</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-lg-10" style="text-align:center">
-                @RenderBody()
-            </div>
-        </div>
-    @*<div class="row">
-        <div class="col-md-2">
-            <div class='menu' title='Menu'><span style='font-size:16px;position:absolute;top:1px;left:-48px'>Menu</span> &#8801;</div>
-
+        <div class="col col-lg-2">           
             <div id='css-menu'>
                 <div id='cssmenu'>
                     <ul>
-                        <li class='home'><span class='close-menu' style='font-size:26px;font-weight:400;position:relative' title='Close'>&#8801; <span style='font-size:18px;font-weight:700;position:absolute;top:17px;left:33px'>Menu</span></span></li>
-                        <li><a href='/' title='Home'><span>Home</span></a></li>
-                        <li><a href='#' title='Daftar Isi'><span>Sitemaps</span></a></li>
+                        <li class='home'><span class='close-menu' style='font-size:26px;font-weight:400;position:relative' title='Close'>&#8801; <span style='font-size:18px;font-weight:700;position:absolute;top:17px;left:33px'>Danh Muc Quản Lý</span></span></li>
+                        <li>@Html.ActionLink("Trang Chủ", "Admin", "Admin")</li>
                         <li class='has-sub'>
-                            <a href='#' title='About This Blog'><span>About This Blog</span></a>
+                            <a><span>Sản Phẩm</span></a>
                             <ul>
-                                <li><a href='#' title='About'><span>About</span></a></li>
-                                <li><a href='#' title='Contact'><span>Contact</span></a></li>
-                                <li class='last'><a href='#' title='Privacy'><span>Privacy</span></a></li>
+                                <li>@Html.Action("Lay_TenNhomSP", "Admin")</li>
                             </ul>
                         </li>
-                        <li><a href='#' title='Pasang Iklan'><span>Advertiser</span></a></li>
-                        <li class='has-sub'>
-                            <a href='#' title='More'><span>More Menus</span></a>
-                            <ul class='expand'>
-                                <li><a href='#' title='More Menu 1'><span>More Menu 1</span></a></li>
-                                <li><a href='#' title='More Menu 2'><span>More Menu 2</span></a></li>
-                                <li><a href='#' title='More Menu 3'><span>More Menu 3</span></a></li>
-                                <li><a href='#' title='More Menu 4'><span>More Menu 4</span></a></li>
-                                <li><a href='3' title='More Menu 5'><span>More Menu 5</span></a></li>
-                                <li><a href='#' title='More Menu 6'><span>More Menu 6</span></a></li>
-                                <li><a href='#' title='More Menu 7'><span>More Menu 7</span></a></li>
-                                <li><a href='#' title='More Menu 8'><span>More Menu 8</span></a></li>
-                                <li><a href='#' title='More Menu 9'><span>More Menu 9</span></a></li>
-                                <li><a href='3' title='More Menu 10'><span>More Menu 10</span></a></li>
-                                <li class='last'><a href='#' rel='nofollow' target='_blank' title='More Menu 11'><span>More Menu 11</span></a></li>
-                            </ul>
-                        </li>
+                        <li>@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</li>
+                        <li>@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</li>
+                        <li>@Html.ActionLink("Khuyến Mãi", "NhanVien", "Admin")</li>
+                        <li>@Html.ActionLink("Kho", "Kho", "Admin")</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col col-lg-10">
+        <div class="col col-lg-10" style="text-align:center">
             @RenderBody()
         </div>
-    </div>*@
+    </div>
+
     @*@*
         @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -126,14 +74,14 @@
                 return false;
             }
         });
-        $(function () {
-            $('.menu').click(function () {
-                $('#css-menu').css({ left: '0' });
-            });
-            $('.close-menu').click(function () {
-                $('#css-menu').css({ left: "-100%" });
-            });
-        });
+        //$(function () {
+        //    $('.menu').click(function () {
+        //        $('#css-menu').css({ left: '0' });
+        //    });
+        //    $('.close-menu').click(function () {
+        //        $('#css-menu').css({ left: "-100%" });
+        //    });
+        //});
     </script>
 </body>
 </html>

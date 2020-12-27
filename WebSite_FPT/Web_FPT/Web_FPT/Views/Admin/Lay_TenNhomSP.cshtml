@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Web_FPT.Models.NhomSanPham>
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("QL_SanPham",new {mansp = @item.MaNhomSP })"> @item.TenNSP</a>
+}
+

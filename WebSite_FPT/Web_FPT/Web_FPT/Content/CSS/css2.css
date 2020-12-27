@@ -14,7 +14,7 @@ body {
 }
 
 
-/*------------- START CSS Header -----------*/
+------------- START CSS Header -----------
 header {
     width: 100%;
 }
@@ -37,23 +37,8 @@ header {
 }
 
 .header-top {
-    text-align: center;
     background-color: #151617;
-    padding-top: 8px;
-    color: white;
-    min-height: 40px;
 }
-
-    .header-top a {
-        text-decoration: none;
-        color: white;
-    }
-
-        .header-top a:hover {
-            border-bottom: none;
-            color: red;
-            transition-delay: 0.1s;
-        }
 
 .header-content nav {
     width: 100%;
@@ -88,21 +73,22 @@ header {
     width: 100%;
 }
 
-/*MENU*/
+MENU
 .meu-item {
     color :orange;
 }
+
 .menu-area {
     position: static; /*giãn item trong sản phẩm*/
 }
 
 .mega-area {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    right: 0;
-    padding: 15px;
-    border: 2px dashed #189EFF;
+    position: fixed !important;
+    top: 17% !important;
+    left: 5% !important;
+    right: 5% !important;
+    padding: 15px !important;
+    transform: none !important;
 }
 
     .mega-area h5 {
@@ -110,8 +96,8 @@ header {
     }
 
     .mega-area .dropdown-item:hover {
-        background-color: #FFC04E;
-        color: #fff;
+        background-color: black;
+        color: white;
         text-align: center;
         transition: .4s;
     }
@@ -119,8 +105,11 @@ header {
 .navbar .nav-link {
     position: relative;
 }
+.meu-item a:hover{
+    background-color:red;
+}
 
-#myNavbar .nav-link:hover:before {
+/*#myNavbar .nav-link:hover:before {
     width: 100%;
 }
 
@@ -139,10 +128,10 @@ header {
     transition: .4s;
     position: absolute;
     left: 0;
-}
+}*/
 
 .dropdown-item {
-    padding: 5px 0; /* item con của từng sản phẩm -> thẳng hàng bên trái */
+    padding: 5px 0;   
 }
 
 #myNavbar h5 {
@@ -151,8 +140,8 @@ header {
     font-size: 18px;
     letter-spacing: 0.5px;
 }
-/*------------- END CSS Header -----------*/
-/*------------- START CSS Content -----------*/
+------------- END CSS Header -----------
+------------- START CSS Content -----------
 .main-wrapper {
     background-color: #F4F4F4;
 }
@@ -266,7 +255,7 @@ header {
     padding-bottom:30px;    
     padding-right:30px;
 }
-/*-----------------------------*/
+-----------------------------
 .simple-login-container {
     width: 300px;
     max-width: 100%;
@@ -285,8 +274,8 @@ header {
 
 .form_dangky .form-control {
 }
-/*------------- END CSS Content -----------*/
-/*------------- START CSS Footer -----------*/
+------------- END CSS Content -----------
+------------- START CSS Footer -----------
 .footer-top p {
     line-height: 25px;
 }
@@ -360,7 +349,7 @@ footer {
     clear: both;
 }
 
-/*---- CSS Responsive -----*/
+---- CSS Responsive -----
 
 @media only screen and(min-width:768px) and (max-width:991px) {
     .md-mb-30 {
@@ -378,8 +367,8 @@ footer {
     }
 }
 
-/*------------- END CSS Footer -----------*/
-/*----- ADMIN -------*/
+------------- END CSS Footer -----------
+----- ADMIN -------
 #upload {
     position: relative;
     overflow: hidden;
@@ -404,32 +393,3 @@ footer {
     color:black;
     background-color:orange;
 }
-    /*@media screen and (max-width: 660px) {
-    #upload #upload2 {
-        position: absolute;
-        font-size: 50px;
-        opacity: 0;
-        right: 0;
-        top: 0;
-    }
-}
-
-@media screen and (min-width: 660px) {
-    .footer-items {
-        width: 100%;
-    }
-}
-
-
-@media screen and (min-width: 1280) {
-    .footer-items {
-        width: 100%;
-    }
-}
-
-
-@media screen and (min-width: 768px) {
-    .footer-items {
-        width: 100%;
-    }
-}*/

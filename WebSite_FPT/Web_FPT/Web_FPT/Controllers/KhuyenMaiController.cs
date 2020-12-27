@@ -18,9 +18,9 @@ namespace Web_FPT.Controllers
             return View(lspkm);
         }
 
-        private List<KhuyenMai> laySPKM()
+        private List<SanPham> laySPKM()
         {
-            return fpt.KhuyenMais.Where(km => km.NgayKetThuc > DateTime.Now).ToList();
+            return fpt.SanPhams.ToList();
         }
 
     }

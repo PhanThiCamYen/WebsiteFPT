@@ -473,6 +473,7 @@
     <Content Include="Content\Img_Show\QC.GioiThieu\h1.jpg" />
     <Content Include="Content\Img_Show\QC.GioiThieu\h2.jpg" />
     <Content Include="Content\Img_Show\QC.GioiThieu\h3.jpg" />
+    <Content Include="Content\Img_Show\QC.GioiThieu\hinhnnen.jpg" />
     <Content Include="Content\Img_Show\QC.PNG\logo.png" />
     <Content Include="Content\Img_Show\QC.PNG\QC1.png" />
     <Content Include="Content\Img_Show\QC.PNG\QC2.png" />
@@ -576,7 +577,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\SanPhamHot.cshtml" />
     <Content Include="Views\SanPham\AllSanPham.cshtml" />
     <Content Include="Views\SanPham\SanPhamDienThoai.cshtml" />
     <Content Include="Views\SanPham\SanPhamLapTop.cshtml" />
@@ -606,12 +606,13 @@
     <Content Include="Views\Admin\Sua_NV.cshtml" />
     <Content Include="Views\Admin\DeleteNV.cshtml" />
     <Content Include="Views\Admin\SuaNhomSP.cshtml" />
-    <Content Include="Views\Admin\NhomSP.cshtml" />
     <Content Include="Views\Admin\DeleteNhomSP.cshtml" />
     <Content Include="Views\TraGop\TraGop.cshtml" />
     <Content Include="Views\KhuyenMai\KhuyenMai.cshtml" />
     <Content Include="Views\SanPham\SanPhamSimThe.cshtml" />
-    <Content Include="Views\Admin\nhomSanPham.cshtml" />
+    <Content Include="Views\Admin\TimKIem.cshtml" />
+    <Content Include="Views\Admin\QL_SanPham.cshtml" />
+    <Content Include="Views\Admin\Lay_TenNhomSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

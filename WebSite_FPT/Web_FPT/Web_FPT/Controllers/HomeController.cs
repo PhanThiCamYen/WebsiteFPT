@@ -17,12 +17,6 @@ namespace Web_FPT.Controllers
             return fpt.SanPhams.Where(a => a.SoLuong >= 5 ).ToList();
 
         }
-        public PartialViewResult
-            SanPhamHot()
-        {
-            var sanpham = LaySanPhamHot();
-            return PartialView(sanpham);
-        }
         public ActionResult Index()
         {
             var sanpham = LaySanPhamHot();
@@ -31,7 +25,6 @@ namespace Web_FPT.Controllers
         public ActionResult GioiThieu()
         {
             return View();
-        }
-        
+        }        
     }
 }

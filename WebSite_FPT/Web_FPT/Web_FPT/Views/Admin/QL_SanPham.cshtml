@@ -1,0 +1,141 @@
+﻿@using Web_FPT.Models
+@model List<SanPham>
+@{
+    ViewBag.Title = "QL_SanPham";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+
+<style type="text/css">
+    #father {
+        width: 400px;
+        overflow: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    table, th, td {
+        border: 1px solid #151313;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: white;
+    }
+
+    table tr:nth-child(even) {
+        background-color: white;
+    }
+
+    table tr:nth-child(1) {
+        background-color: #111213;
+        color: #ecf3f3;
+    }
+</style>
+
+<div>
+    <ul>
+
+        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline" }))
+        {
+            <input class="form-control" type="search" id="inputSearch" name="id1" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:500px" />
+
+            <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:45px;height:35px;text-align:center;background-color:black;border:1px solid black;">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <a style="padding-left: 38%;">
+                <button type="button" class="btn btn-info" onclick="document.getElementById('themsp').style.display='block'" style="width:auto;">Thêm</button>
+            </a>
+        }
+    </ul>
+</div>
+<div>
+    <div id="themsp" class="modal">
+        <form class="modal-content animate" action="/action_page.php" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('themsp').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container1" style="padding:5%;">
+                <label for="Masp"><b>Mã nhóm sản phẩm</b></label>
+                <input type="text" placeholder="Nhập nhóm sản phẩm" name="Masp" required>
+
+                <label for="Masp"><b>Mã Sản Phẩm</b></label>
+                <input type="text" placeholder="Nhập mã sản phẩm" name="Masp" required>
+
+                <label for="Tensp"><b>Tên Sản Phẩm</b></label>
+                <input type="text" placeholder="Nhập tên sản phẩm" name="Tensp" required>
+
+                <label for="Soluong"><b>Số Lượng</b></label>
+                <input type="text" placeholder="Nhập số lượng sản phẩm" name="Soluong" required>
+
+                <label for="Giaban"><b>Giá Bán</b></label>
+                <input type="text" placeholder="Nhập giá sản phẩm" name="Giaban" required>
+
+                <label for="Hinhanh"><b>Hình Ảnh</b></label>
+                <input type="text" placeholder="Chọn hình ảnh sản phẩm" name="Hinhanh" required>
+                <div style="text-align:end;">
+                    <button class="button" type="submit">Thêm</button>
+                    <button class="button" onclick="document.getElementById('themsp').style.display='none'" class="cancelbtn">Trở về</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('themsp');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</div>
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th style="text-align: center;">Ảnh</th>
+                <th style="text-align: center;">Mã Sản Phẩm</th>
+                <th style="text-align: center; width: 20%;"> Tên Sản Phẩm</th>
+                <th style="text-align: center;">Số Lượng</th>
+                <th style="text-align: center;">Giá Bán</th>
+                <th style="text-align: center; width: 1%;"></th>
+                <th style="text-align: center; width: 1%;"></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td style="text-align:center; border: 1px solid #ddd; padding: 8px;">
+                <img src="~/Content/image/@item.HinhAnh" width="150px" height="150px" />
+            </td>
+            <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.MaSP</td>
+            <td style="text-align:center; border: 1px solid #ddd; border: 1px solid #ddd;">@item.TenSP</td>
+            <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.SoLuong </td>
+            <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@String.Format("{0:0,0}", item.GiaBan)</td>
+
+            <td>@Html.ActionLink("Sửa", "Sua", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+            <td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+        </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+
+

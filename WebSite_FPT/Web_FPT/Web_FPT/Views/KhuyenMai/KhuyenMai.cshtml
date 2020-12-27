@@ -1,5 +1,5 @@
 ﻿@using Web_FPT.Models
-@model List<KhuyenMai>
+@model List<SanPham>
 @{
     ViewBag.Title = "KhuyenMai";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,11 +18,11 @@
             <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM1.png" width="100%" height="350px" alt="First slide">
         </div>
         @*<div class="carousel-item" id="slide2">
-            <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM2.jpg" width="100%" height="350px" alt="Second slide">
-        </div>*@
+                <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM2.jpg" width="100%" height="350px" alt="Second slide">
+            </div>*@
         @*<div class="carousel-item" id="slide3">
-            <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM3.jpg" width="100%" height="350px" alt="Third slide">
-        </div>*@
+                <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM3.jpg" width="100%" height="350px" alt="Third slide">
+            </div>*@
         <div class="carousel-item" id="slide4">
             <img class="d-block w-100" src="~/Content/Img_Show/QC_DT/qc4.png" width="100%" height="350px" alt="Four slide">
         </div>
@@ -50,26 +50,24 @@
     <div class="row">
         @if (Model != null)
         {
-            SanPham sp = new SanPham();
-
-            foreach (KhuyenMai km in Model)
+            foreach (var sp in Model)
             {
                 <div class="col-md-3 col-sm-4 col-6" id="products" style="text-align:center; margin-bottom:10px;">
                     <div class="item-product">
                         <div class="hinhanhsanpham">
-                            <a href="@Url.Action("Details", "SanPham", new { id = km.MaSP })"><img src="~/Content/image/@sp.HinhAnh" style="max-height:200px" width="200px" /></a>
+                            <a href="@Url.Action("Details", "SanPham", new { id = sp.MaSP })"><img src="~/Content/image/@sp.HinhAnh" style="max-height:200px" width="200px" /></a>
                         </div>
                         <div class="tensanpham">
-                            <h5><a class="text-name-product" href="@Url.Action("Details", "SanPham", new { id = km.MaSP })">@sp.TenSP</a></h5>
+                            <h5><a class="text-name-product" href="@Url.Action("Details", "SanPham", new { id = sp.MaSP })">@sp.TenSP</a></h5>
                         </div>
                         <div class="giasanpham">
-                            <h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5>
+                           <del><h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5></del> 
                         </div>
                         <div class="giasanpham">
-                            <h5>Giá Khuyến Mãi @string.Format("{0:N0}", sp.GiaBan * km.MucGiamGia) VNĐ</h5>
+                            <h5>Giá Khuyến Mãi @string.Format("{0:N0}", sp.GiaBan) VNĐ</h5>
                         </div>
                         <div class="ngay">
-                            <h5>@km.NgayBatDau- @km.NgayKetThuc VNĐ</h5>
+                            <h5></h5>
                         </div>
                         <div class="review">
                             <i class="fa fa-star" style="color:#FFC120;"></i>

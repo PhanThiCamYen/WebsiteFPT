@@ -3,6 +3,102 @@
     Layout = "~/Views/Shared/QuanLy.cshtml";
 }
 
-<h2>Thêm Sản Phẩm</h2>
+@*@{ ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/layout_admin.cshtml"; }*@
 
-   
+<h2 style="text-align:center">Thêm sản phẩm mới</h2>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <form>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Tên Sản Phẩm</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="tensanpham" placeholder="Tên Sản Phẩm">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Mã Sản Phẩm</label>
+                <div class="col-sm-4" style="text-align:center">
+                    <input style="text-align:center" type="text" class="form-control" name="masanpham" placeholder="Mã Sản Phẩm">
+                    <div>
+                        <span style="color:red;text-decoration:underline;">GỢI Ý: MÃ SẢN PHẨM cao nhất hiện tại là  @ViewData["SoLuongSanPham"] </span><br />
+                        <span style="color:red;text-decoration:underline;">@ViewData["Loi1"]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Ảnh Sản Phẩm</label>
+                <div class="col-sm-4">
+                    @Html.DropDownList("HinhAnh")
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Giá Bán</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="giaban" placeholder="Giá">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Số lượng</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="soluong" placeholder="Số lượng">
+                </div>
+            </div>
+            @*<div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Mô tả</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="mota" placeholder="Mô tả">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Xuất xứ</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="xuatxu" placeholder="Xuất xứ">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Thương hiệu</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="thuonghieu" placeholder="Thương hiệu">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Ngày Nhập</label>
+                <div class="col-sm-4">
+                    @Html.TextBox("DateCreated", DateTime.Now, new { @readonly = "readonly", @class = "form-control" })
+                </div>
+            </div>*@
+            <fieldset class="form-group">
+                <div class="row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tình trạng</label>
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" name="gridRadios1" value="Còn Hàng" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                                Còn hàng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gridRadios" name="gridRadios2" value="Hết Hàng">
+                            <label class="form-check-label" for="gridRadios2">
+                                Hết hàng
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <div class="file btn btn-lg btn-secondary" id="upload">
+                Chọn hình
+                <input id="upload2" type="file" name="file" />
+            </div>
+
+            <input type="submit" class="btn btn-secondary" value="Tạo mới" style="width:120px;height:49px" />
+        </form>}
+</div>
+
+
