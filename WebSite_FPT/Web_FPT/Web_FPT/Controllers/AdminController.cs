@@ -49,7 +49,11 @@ namespace Web_FPT.Controllers
             }
             return View();
         }
-
+        public ActionResult DangXuat()
+        {
+            Session["AdminIsLogin"] = null;
+            return RedirectToAction("DangNhap", "Admin");
+        }
         public ActionResult Admin()
         {
             if (Session["AdminIsLogin"] != null)
@@ -200,7 +204,7 @@ namespace Web_FPT.Controllers
             {
                 ViewData["Loi8"] = "Thời Gian Bảo Hành Sản Phẩm Không Được Để Trống";
             }
-            else
+            else if (s_masp != null)
             {
 
                 s_masp.TenSP = s_tensanpham;
@@ -255,7 +259,7 @@ namespace Web_FPT.Controllers
             {
                 ViewData["Loi7"] = "Loại Kệ Sản Phẩm Không Được Để Trống";
             }
-            else
+            else if (sk_masp != null)
             {
                 sk_masp.SoLuongTon = sk_soluongton;
                 sk_masp.LoaiKe = sk_loaike;
@@ -391,7 +395,7 @@ namespace Web_FPT.Controllers
                 //s_manv.MaPQ = s_maPQ;
                 UpdateModel(manv);
                 fpt.SubmitChanges();
-                return RedirectToAction("Admin", "Admin");
+                return RedirectToAction("NhanVien", "Admin");
             }
             return this.Sua_NV(manv);
         }
@@ -472,7 +476,28 @@ namespace Web_FPT.Controllers
             fpt.SubmitChanges();
             return RedirectToAction("NhomSP", "Admin");
         }
-       
+        public ActionResult TimKiemAD()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult TimKiemAD(string id)
+        {
+
+            var sp = laySanPhamTimKiemAD(id);
+
+            return View(sp);
+
+        }
+
+        private List<SanPham> laySanPhamTimKiemAD(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return fpt.SanPhams.Where(a => a.TenSP.ToLower().Contains("@(*&@*($&@*&$*(@$&(*@$&(@&$(*!&$*(&$")).ToList();
+            }
+            return fpt.SanPhams.Where(a => a.TenSP.Contains(id)).ToList();
+        }
     }
 
 }

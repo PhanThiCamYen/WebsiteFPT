@@ -657,6 +657,8 @@ namespace Web_FPT.Models
 		
 		private System.Nullable<System.DateTime> _NgayLap;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntityRef<HoaDon> _HoaDon;
 		
 		private EntityRef<SanPham> _SanPham;
@@ -677,6 +679,8 @@ namespace Web_FPT.Models
     partial void OnThanhTienChanged();
     partial void OnNgayLapChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayLapChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public ChiTietHoaDon()
@@ -810,6 +814,26 @@ namespace Web_FPT.Models
 					this._NgayLap = value;
 					this.SendPropertyChanged("NgayLap");
 					this.OnNgayLapChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
 				}
 			}
 		}
@@ -1893,6 +1917,8 @@ namespace Web_FPT.Models
 		
 		private string _MaNhomSP;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntitySet<SanPham> _SanPhams;
 		
 		private EntityRef<NhomSanPham> _NhomSanPham;
@@ -1907,6 +1933,8 @@ namespace Web_FPT.Models
     partial void OnTenHangChanged();
     partial void OnMaNhomSPChanging(string value);
     partial void OnMaNhomSPChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public Hang()
@@ -1976,6 +2004,26 @@ namespace Web_FPT.Models
 					this._MaNhomSP = value;
 					this.SendPropertyChanged("MaNhomSP");
 					this.OnMaNhomSPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
 				}
 			}
 		}
@@ -2328,6 +2376,8 @@ namespace Web_FPT.Models
 		
 		private string _DiaChiKH;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntitySet<BaoHanh> _BaoHanhs;
 		
 		private EntitySet<HoaDon> _HoaDons;
@@ -2350,6 +2400,8 @@ namespace Web_FPT.Models
     partial void OnSDTKHChanged();
     partial void OnDiaChiKHChanging(string value);
     partial void OnDiaChiKHChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public KhachHang()
@@ -2495,6 +2547,26 @@ namespace Web_FPT.Models
 					this._DiaChiKH = value;
 					this.SendPropertyChanged("DiaChiKH");
 					this.OnDiaChiKHChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
 				}
 			}
 		}
@@ -3425,6 +3497,8 @@ namespace Web_FPT.Models
 		
 		private string _MaPQ;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntitySet<HoaDon> _HoaDons;
 		
 		private EntitySet<PhieuNhap> _PhieuNhaps;
@@ -3453,6 +3527,8 @@ namespace Web_FPT.Models
     partial void OnMatKhauNVChanged();
     partial void OnMaPQChanging(string value);
     partial void OnMaPQChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public NhanVien()
@@ -3647,6 +3723,26 @@ namespace Web_FPT.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_HoaDon", Storage="_HoaDons", ThisKey="MaNV", OtherKey="MaNV")]
 		public EntitySet<HoaDon> HoaDons
 		{
@@ -3762,6 +3858,8 @@ namespace Web_FPT.Models
 		
 		private string _TenNSP;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntitySet<ChiTietSanPham> _ChiTietSanPhams;
 		
 		private EntitySet<Hang> _Hangs;
@@ -3776,6 +3874,8 @@ namespace Web_FPT.Models
     partial void OnMaNhomSPChanged();
     partial void OnTenNSPChanging(string value);
     partial void OnTenNSPChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public NhomSanPham()
@@ -3822,6 +3922,26 @@ namespace Web_FPT.Models
 					this._TenNSP = value;
 					this.SendPropertyChanged("TenNSP");
 					this.OnTenNSPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
 				}
 			}
 		}
@@ -4236,6 +4356,8 @@ namespace Web_FPT.Models
 		
 		private string _MaHang;
 		
+		private System.Nullable<bool> _TinhTrang;
+		
 		private EntitySet<BaoHanh> _BaoHanhs;
 		
 		private EntitySet<TraGop> _TraGops;
@@ -4280,6 +4402,8 @@ namespace Web_FPT.Models
     partial void OnMaNhomSPChanged();
     partial void OnMaHangChanging(string value);
     partial void OnMaHangChanged();
+    partial void OnTinhTrangChanging(System.Nullable<bool> value);
+    partial void OnTinhTrangChanged();
     #endregion
 		
 		public SanPham()
@@ -4463,6 +4587,26 @@ namespace Web_FPT.Models
 					this._MaHang = value;
 					this.SendPropertyChanged("MaHang");
 					this.OnMaHangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TinhTrang", DbType="Bit")]
+		public System.Nullable<bool> TinhTrang
+		{
+			get
+			{
+				return this._TinhTrang;
+			}
+			set
+			{
+				if ((this._TinhTrang != value))
+				{
+					this.OnTinhTrangChanging(value);
+					this.SendPropertyChanging();
+					this._TinhTrang = value;
+					this.SendPropertyChanged("TinhTrang");
+					this.OnTinhTrangChanged();
 				}
 			}
 		}

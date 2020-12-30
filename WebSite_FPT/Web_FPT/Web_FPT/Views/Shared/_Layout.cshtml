@@ -26,14 +26,14 @@
                     <div class="container">
                         <div class="row">
                             <nav class="navbar navbar-expand-lg navbar-light">
-                                <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                                     <img src="~/Content/Img_Show/QC.PNG/logo.png" style="max-height:80px;" width="200px" />
                                 </a>
                                 <div class="collapse navbar-collapse" id="myNavbar">
                                     <ul class="navbar-nav w-100">
-                                        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 w-100 mr-5" }))
+                                        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline my-1 my-lg-0 mr-5" }))
                                         {
-                                            <input class="form-control w-100" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" />
+                                            <input class="form-control " type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:460px;" />
                                             <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:55px;height:38px;text-align:center;background-color:black;border:1px solid black;">
                                                 <i class="fas fa-search"></i>
                                             </button>
@@ -67,47 +67,45 @@
                 </div>
             </div>
             @* MENU con *@
-
             <div class="header-top" style="text-align:center; width:100%;">
                 <ul style="margin-bottom:auto;">
                     <li class="nav-item dropdown">
-                        <a class="fa fa-home nav-link" href="@Url.Action("Index","Home")" id="navbarDropdown" style="color: white;">&nbsp;Trang Chủ</a>
+                        <a class="fa fa-home nav-link" href="@Url.Action("Index", "Home")" id="navbarDropdown" style="color: white;">&nbsp;Trang Chủ</a>
                     </li>
-
                     <li class="menu-item dropdown">
                         <a class="fas fa-mobile-alt nav-link" href="#" id="navbarDropdown" data-toggle="dropdown" style="color: white;">&nbsp;Điện Thoại</a>
                         <div class="dropdown-menu mega-area " aria-labelledby="mega-menu">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-3">
-                                    <h5>HÃNG</h5>
-                                    @Html.ActionLink("Iphone", "SanPhamSamSung", "SanPham", null, new { id = "Iphone", @class = "dropdown-item" })
-                                    @Html.ActionLink("SamSung", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                    @Html.ActionLink("Oppo", "SanPhamSamSung", "SanPham", null, new { id = "Oppo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Vivo", "SanPhamSamSung", "SanPham", null, new { id = "Vivo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Huawei", "SanPhamSamSung", "SanPham", null, new { id = "Huawei", @class = "dropdown-item" })
-                                    @Html.ActionLink("Nokia", "SanPhamSamSung", "SanPham", null, new { id = "Nokia", @class = "dropdown-item" })
-                                    @Html.ActionLink("Realme", "SanPhamSamSung", "SanPham", null, new { id = "Realme", @class = "dropdown-item" })
-                                    @Html.ActionLink("Masstel", "SanPhamSamSung", "SanPham", null, new { id = "Masstel", @class = "dropdown-item" })
+                                    <h5>HÃNG(Sản Xuất)</h5>
+                                    @Html.Action("Lay_TenHangSP", "SanPham", new { masp = "DT" })
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    @* Tùy bà *@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <h5>MỨC GIÁ</h5>
                                     <ul>
-                                        <li><a href="#"> Từ 1- 2 triệu</a></li>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1=0 ,gia2 = 1000000 })"> Dưới 1 triệu</a></li>
                                     </ul>
                                     <ul>
-                                        <li><a href="#"> Từ 3- 5 triệu</a></li>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1 = 1000000,gia2 = 3000000 })"> Từ 1- 3 triệu</a></li>
                                     </ul>
                                     <ul>
-                                        <li><a href="#"> Từ 3- 10 triệu</a></li>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1 = 3000000,gia2 = 6000000 })"> Từ 3- 6 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1 = 6000000,gia2 = 10000000 })"> Từ 6- 10 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1 = 10000000,gia2 = 15000000 })"> Từ 10- 15 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDT","SanPham",new {gia1 = 15000000,gia2 = 1000000000 })"> Trên 15 triệu</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    <img class="d-block w-100" src="~/Content/Img_Show/QC_DT/dt2.png" width="100%" height="350px" alt="First slide">
                                 </div>
 
                             </div>
@@ -119,15 +117,9 @@
                         <div class="dropdown-menu mega-area " aria-labelledby="mega-menu">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-3">
-                                    <h5>HÃNG</h5>
-                                    @Html.ActionLink("HP", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Dell", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                    @Html.ActionLink("Lenovo", "SanPhamSamSung", "SanPham", null, new { id = "Oppo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Vivo", "SanPhamSamSung", "SanPham", null, new { id = "Vivo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Macbook", "SanPhamSamSung", "SanPham", null, new { id = "Huawei", @class = "dropdown-item" })
-                                    @Html.ActionLink("MSI", "SanPhamSamSung", "SanPham", null, new { id = "Nokia", @class = "dropdown-item" })
-                                    @Html.ActionLink("Acer", "SanPhamSamSung", "SanPham", null, new { id = "Realme", @class = "dropdown-item" })
-                                    @Html.ActionLink("Asus", "SanPhamSamSung", "SanPham", null, new { id = "Masstel", @class = "dropdown-item" })
+                                    <h5>HÃNG(Sản Xuất)</h5>
+                                    @Html.Action("Lay_TenHangSP", "SanPham", new { masp = "LT" })
+
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
 
@@ -135,13 +127,31 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <h5>MỨC GIÁ</h5>
-
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1=0 ,gia2 = 5000000 })"> Dưới 5 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 5000000,gia2 = 10000000 })"> Từ 5- 10 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 10000000,gia2 = 15000000 })"> Từ 10- 15 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 15000000,gia2 = 20000000 })"> Từ 15- 20 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 20000000,gia2 = 25000000 })"> Từ 20- 25 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 25000000,gia2 = 30000000 })"> Từ 25-30 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaLT","SanPham",new {gia1 = 30000000,gia2 = 100000000 })"> Trên 30 triệu</a></li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    <img class="d-block w-100" src="~/Content/Img_Show/QC_LapTop/lt1.png" width="100%" height="350px" alt="First slide">
                                 </div>
-
                             </div>
                         </div>
                     </li>
@@ -152,8 +162,9 @@
                             <div class="row">
                                 <div class="col-sm-6 col-lg-3">
                                     <h5>HÃNG</h5>
-                                    @Html.ActionLink("Apple Watch", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Đồng hồ mặt kim", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
+                                    @Html.Action("Lay_TenHangSP", "SanPham", new { masp = "DH" })
+                                    @*@Html.ActionLink("Apple Watch", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
+                                        @Html.ActionLink("Đồng hồ mặt kim", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })*@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
 
@@ -161,11 +172,21 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <h5>MỨC GIÁ</h5>
-
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDH","SanPham",new {gia1=0 ,gia2 = 1000000 })"> Dưới 1 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDH","SanPham",new {gia1 = 1000000,gia2 = 5000000 })"> Từ 1- 5 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDH","SanPham",new {gia1 = 5000000,gia2 = 10000000 })"> Từ 5- 10 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaDH","SanPham",new {gia1 = 10000000,gia2 = 1000000000 })"> Trên 10 triệu</a></li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    <img class="d-block w-100" src="~/Content/Img_Show/QC_DongHo/dh1.png" width="100%" height="200px" alt="First slide">
                                 </div>
 
                             </div>
@@ -177,11 +198,9 @@
                         <div class="dropdown-menu mega-area " aria-labelledby="mega-menu">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-3">
-                                    <h5>HÃNG</h5>
-                                    @Html.ActionLink("Apple", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Samsung", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                    @Html.ActionLink("Masstel", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Huawei", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
+                                    <h5>HÃNG(Sản Xuất)</h5>
+                                    @Html.Action("Lay_TenHangSP", "SanPham", new { masp = "TL" })
+
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
 
@@ -189,15 +208,24 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
                                     <h5>MỨC GIÁ</h5>
-
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaTL","SanPham",new {gia1=0 ,gia2 = 2000000 })"> Dưới 2 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaTL","SanPham",new {gia1 = 2000000,gia2 = 5000000 })"> Từ 2- 5 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaTL","SanPham",new {gia1 = 5000000,gia2 = 8000000 })"> Từ 5- 8 triệu</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="@Url.Action("MucGiaTL","SanPham",new {gia1 = 8000000,gia2 = 1000000000 })"> Trên 8 triệu</a></li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    <img class="d-block w-100" src="~/Content/Img_Show/QC_DT/tl1.png" width="100%" height="200px" alt="First slide">
                                 </div>
 
                             </div>
-
                         </div>
                     </li>
 
@@ -206,27 +234,20 @@
                         <div class="dropdown-menu mega-area " aria-labelledby="mega-menu">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-3">
-                                    <h5>HÃNG</h5>
-                                    @Html.ActionLink("Ốp lưng", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Bàn phím", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                    @Html.ActionLink("Chuột", "SanPhamSamSung", "SanPham", null, new { id = "Oppo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Pin Dự Phòng", "SanPhamSamSung", "SanPham", null, new { id = "Vivo", @class = "dropdown-item" })
-                                    @Html.ActionLink("Tai nge", "SanPhamSamSung", "SanPham", null, new { id = "Huawei", @class = "dropdown-item" })
-                                    @Html.ActionLink("MSI", "SanPhamSamSung", "SanPham", null, new { id = "Nokia", @class = "dropdown-item" })
-                                    @Html.ActionLink("Acer", "SanPhamSamSung", "SanPham", null, new { id = "Realme", @class = "dropdown-item" })
-                                    @Html.ActionLink("Asus", "SanPhamSamSung", "SanPham", null, new { id = "Masstel", @class = "dropdown-item" })
+                                    <h5>CÁC SẢN PHẨM PHỤ KIỆN</h5>
+                                    @Html.Action("Lay_TenHangSP", "SanPham", new { masp = "PK" })
                                 </div>
+
                                 <div class="col-sm-6 col-lg-3">
 
 
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-                                    <h5>MỨC GIÁ</h5>
+
 
                                 </div>
                                 <div class="col-sm-6 col-lg-3">
-
-
+                                    <img class="d-block w-100" src="~/Content/Img_Show/QC_PhuKien/pk1.png" width="100%" height="200px" alt="First slide">
                                 </div>
 
                             </div>
@@ -235,33 +256,7 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="fas fa-sim-card nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style="color: white;">&nbsp;Sim & Thẻ</a>
-                        <div class="dropdown-menu mega-area " aria-labelledby="mega-menu">
-                            <div class="row">
-                                <div class="col-sm-6 col-lg-3">
-                                    <h5>HÃNG</h5>
-                                    @Html.ActionLink("VinaPhone", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("Vietel", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                    @Html.ActionLink("MobiPhone", "SanPhamSamSung", "SanPham", null, new { id = "HP", @class = "dropdown-item" })
-                                    @Html.ActionLink("VietNamMobile", "SanPhamSamSung", "SanPham", null, new { id = "SamSung", @class = "dropdown-item" })
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-
-
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-                                    <h5>MỨC GIÁ</h5>
-                                    
-
-                                </div>
-                                <div class="col-sm-6 col-lg-3">
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <a class="fas fa-sim-card nav-link" href="@Url.Action("SanPhamSimThe","SanPham")" id="navbarDropdown" style="color: white;">&nbsp;Sim & Thẻ</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -271,124 +266,7 @@
                         <a class="fas fa-piggy-bank nav-link" href="@Url.Action( "TraGop", "TraGop")" id="navbarDropdown" style="color: white;">&nbsp;Trả Góp</a>
                     </li>
                 </ul>
-                @*<div class="container-fluid">
-                        <div class="row">
-                            <div style="text-align:center; width:100%;">
-                                <ul class="menu-con" style="margin-bottom:auto;">
-                                    <li class="nav-item dropdown">
-                                        <a class="fa fa-home nav-link" href="@Url.Action("Index","Home")" id="navbarDropdown" style="color: white;">&nbsp;Trang Chủ</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-mobile-alt nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;Điện Thoại</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">SamSung</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Oppo</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Vivo</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Huawei</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Nokia</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Realme</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Iphone</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Masstel</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Vsmart</a>
 
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-laptop nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;LapTop</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">HP</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Dell</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Lenovo</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Macbook</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">MSI</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Acer</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Asus</a>
-
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-clock nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;Đồng Hồ</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">Apple Watch</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Đồng hồ mặt kim</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-tablet-alt nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;TabLet</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">Apple</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Samsung</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Masstel</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Huawei</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-headphones-alt nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;Phụ Kiện</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">Ốp lưng</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Bàn phím</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Chuột</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Pin Dự Phòng</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Tai nge</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Tai nge</a>fĐ
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-sim-card nav-link" href="#" id="navbarDropdown" style="color: white;">&nbsp;Sim & Thẻ</a>
-                                        <div class="dropdown-content">
-                                            <a class="dropdown-item" href="#">Sim điện thoại</a>
-
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-percentage nav-link" href="@Url.Action("KhuyenMai", "KhuyenMai")" id="navbarDropdown" style="color: white;">&nbsp;Khuyến Mãi</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="fas fa-piggy-bank nav-link" href="@Url.Action( "TraGop", "TraGop")" id="navbarDropdown" style="color: white;">&nbsp;Trả Góp</a>
-                                    </li>
-                                </ul>
-                                <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-mobile-alt"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("ĐIỆN THOẠI", "SanPhamDienThoai", "SanPham")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-laptop"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("LAPTOP", "SanPhamLapTop", "SanPham")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="far fa-clock"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("ĐỒNG HỒ", "SanPhamDongHo", "SanPham")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-tablet-alt"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("TABLET", "SanPhamTabLet", "SanPham") </a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-headphones-alt"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("PHỤ KIỆN", "SanPhamPhuKien", "SanPham")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-sim-card"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("SIM & THẺ", "SanPhamSimThe", "SanPham")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-percent"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("KHUYẾN MÃI", "KhuyenMai", "KhuyenMai")</a>
-                                    <i style="color:#fff;font-size:18px;padding-left:35px" class="fas fa-piggy-bank"></i>
-                                    <a style="color:#fff;">@Html.ActionLink("TRẢ GÓP", "TraGop", "TraGop")</a>
-                            </div>
-                        </div>
-                    </div>*@
             </div>
         </header>
         <main>
@@ -447,9 +325,14 @@
                                     <a href="https://www.facebook.com/profile.php?id=100023158040615" target="_blank"><i class="fab fa-facebook-f"></i></a>
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fpuns99%3Ffbclid%3DIwAR3Q94ILoPGWvvz4VdtO-ERyPR2N6ZBTVekOHEXgFvrX5crsZBQ-b4CZh8k&h=AT1r7FvlRjtcOicyMHDZ4ptTMb0j3NMm-mritDInbuCVga65rCCRuVaCVwCZAut8Ex5rmvFOWvsZtNDrl5mUYrfu2Yh-sNbieDt3hH8fZJGe-ntFZEyq09ONqmYHpXkjTYtr" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <br />
                                     <i>
-                                        <a class="active" style="color:black"> Tư vấn mua hàng (Miễn phí):</a>
+                                        <a class="active" style="color:black"> Tư vấn mua hàng:</a>
                                         <a style="color:crimson"> 1800 6601</a>
+                                        <br />
+                                        <a class="active" style="color:black">Góp ý, khiếu nại dịch vụ (8h00-22h00):</a> 
+                                        <a style="color:crimson">1800 6616</a>
+
                                     </i>
                                 </p>
                             </div>
@@ -464,15 +347,6 @@
                                 <div class="row">
                                     <i class="fa fa-phone"> Phone: 18006601</i>
                                 </div>
-                                @*<p>
-                                        <a class="active" style="color:black"> Tư vấn mua hàng (Miễn phí):</a> <br />
-                                        <a style="color:crimson"> 1800 6601</a>
-                                    </p>*@
-                                <p>
-                                    <a class="active" style="color:black">Góp ý, khiếu nại dịch vụ (8h00-22h00):</a> <br />
-                                    <a style="color:crimson">1800 6616</a>
-                                </p>
-
                             </div>
                         </div>
                     </div>

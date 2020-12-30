@@ -1,0 +1,60 @@
+﻿@using Web_FPT.Models
+@model List<KhachHang>
+@{
+    ViewBag.Title = "KhachHang";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="text-align:center;">Mã Khách Hàng</th>
+                <th style="text-align:center;"> Họ Tên </th>
+                <th style="text-align:center;">Giới Tính</th>
+                <th style="text-align:center;">Ngày Sinh</th>
+                <th style="text-align:center;">Số Điện Thoại</th>
+                <th style="text-align:center;">Email</th>
+                <th style="text-align:center;">Địa Chỉ</th>
+                <th style="text-align:center;"></th>
+                <th style="text-align:center;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (KhachHang item in Model)
+                {
+                    String temp = Convert.ToString(@item.GioiTinhKH);
+                    <tr>
+                        <td style="text-align:center">@item.MaKH</td>
+                        <td style="text-align:center">@item.TenKH</td>
+
+                        <td style="text-align:center">
+                            @if (temp == "True")
+                            {
+                                temp = "Nam";
+                            }
+                            else
+                            {
+                                temp = "Nữ";
+                            }
+                            @temp
+                        </td>
+                        <td style="text-align:center">@Convert.ToDateTime(item.NgaySinhKH).Day/@Convert.ToDateTime(item.NgaySinhKH).Month/@Convert.ToDateTime(item.NgaySinhKH).Year </td>
+                        <td style="text-align:center">@item.SDTKH</td>
+                        <td style="text-align:center">@item.EmailKH</td>
+                        <td style="text-align:center">@item.DiaChiKH</td>
+                        @*<td><button type="button" class="btn btn-info">Sửa</button></td>
+                            <td><button type="button" class="btn btn-info">Xóa</button></td>*@
+                        <td>@Html.ActionLink("Sửa", "Sua_KH", "KhachHang", new { makh = @item.MaKH }, new { @class = "btn btn-info" })</td>
+                        <td>@Html.ActionLink("Xóa", "DeleteKH", "KhachHang", new { makh = @item.MaKH }, new { @class = "btn btn-info" })</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

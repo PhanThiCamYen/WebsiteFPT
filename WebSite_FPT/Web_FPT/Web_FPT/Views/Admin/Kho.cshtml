@@ -87,7 +87,7 @@
                 <th style="text-align:center;"> Số Lượng Tồn</th>
                 <th style="text-align:center;">Loại Kệ</th>
                 <th style="width: 1%;" text-align:center;>Sửa</th>
-                <th style="width: 1%;" text-align:center;>Xóa</th>
+                @*<th style="width: 1%;" text-align:center;>Xóa</th>*@
 
             </tr>
         </thead>
@@ -103,7 +103,7 @@
                         <td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@item.LoaiKe </td>
                         @*<td style="text-align:center; border: 1px solid #ddd; padding: 8px; border: 1px solid #ddd;">@String.Format("{0:0,0}", item.GiaBan)</td>*@
                         <td>@Html.ActionLink("Sửa", "SuaKho", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
-                        <td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>
+                        @*<td>@Html.ActionLink("Xóa", "Delete", "Admin", new { masp = @item.MaSP }, new { @class = "btn btn-info" })</td>*@
                     </tr>
                 }          
         }

@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Sua_KH";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container" style="text-align:center;padding-left:20%">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <form>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Mã Khách Hàng</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" disabled type="text" class="form-control" name="maKH" placeholder="Mã Khách Hàng" value="@Model.MaKH">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Họ Tên</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="tenKH" placeholder="Họ Tên" value="@Model.TenKH">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Ngày Sinh</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="ngaysinhKH" placeholder="Ngày Sinh" value="@Model.NgaySinhKH">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Giới Tính</label>
+                <div class="col-sm-4">
+                    @if (@Model.GioiTinhKH != null)
+                    {
+                        String gioiTinh = Convert.ToString(@Model.GioiTinhKH);
+                        if (gioiTinh == "True")
+                        {
+                            gioiTinh = "Nam";
+                        }
+                        else
+                        {
+                            gioiTinh = "Nữ";
+                        }
+                        <input style="text-align:center" type="text" class="form-control" name="gioiTinhKH" placeholder="Giới Tính" value="@gioiTinh">
+                    }
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="emailKH" placeholder="Email Khách Hàng" value="@Model.EmailKH">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Số Điện Thoại</label>
+                <div class="col-sm-4">
+                  
+                    <input style="text-align:center" type="number" pattern="\d*" placeholder="Số Điện Thoại" class="form-control" name="sdtKH" maxlength="4" value="@Model.SDTKH">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Địa Chỉ</label>
+                <div class="col-sm-4">
+                    <input style="text-align:center" type="text" class="form-control" name="diaChiKH" placeholder="Địa Chỉ" value="@Model.DiaChiKH">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4" style="align-items:center">
+                    <input type="submit" class="btn btn-secondary" value="Lưu" style="width:120px;height:49px; " />
+                </div>
+            </div>
+        </form>
+
+
+    }
+
+</div>
+
+
+
+

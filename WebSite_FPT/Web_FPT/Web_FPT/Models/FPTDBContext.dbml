@@ -26,6 +26,7 @@
       <Column Name="SoLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ThanhTien" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="NgayLap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="HoaDon_ChiTietHoaDon" Member="HoaDon" ThisKey="MaHD" OtherKey="MaHD" Type="HoaDon" IsForeignKey="true" />
       <Association Name="SanPham_ChiTietHoaDon" Member="SanPham" ThisKey="MaSP" OtherKey="MaSP" Type="SanPham" IsForeignKey="true" />
     </Type>
@@ -80,6 +81,7 @@
       <Column Name="MaHang" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenHang" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MaNhomSP" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Hang_SanPham" Member="SanPhams" ThisKey="MaHang" OtherKey="MaHang" Type="SanPham" />
       <Association Name="NhomSanPham_Hang" Member="NhomSanPham" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="NhomSanPham" IsForeignKey="true" />
     </Type>
@@ -104,6 +106,7 @@
       <Column Name="EmailKH" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
       <Column Name="SDTKH" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DiaChiKH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="KhachHang_BaoHanh" Member="BaoHanhs" ThisKey="MaKH" OtherKey="MaKH" Type="BaoHanh" />
       <Association Name="KhachHang_HoaDon" Member="HoaDons" ThisKey="MaKH" OtherKey="MaKH" Type="HoaDon" />
     </Type>
@@ -161,6 +164,7 @@
       <Column Name="DiaChiNV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MatKhauNV" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="MaPQ" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="NhanVien_HoaDon" Member="HoaDons" ThisKey="MaNV" OtherKey="MaNV" Type="HoaDon" />
       <Association Name="NhanVien_PhieuNhap" Member="PhieuNhaps" ThisKey="MaNV" OtherKey="MaNV" Type="PhieuNhap" />
       <Association Name="ChucVu_NhanVien" Member="ChucVu" ThisKey="MaPQ" OtherKey="MaPQ" Type="ChucVu" IsForeignKey="true" />
@@ -170,6 +174,7 @@
     <Type Name="NhomSanPham">
       <Column Name="MaNhomSP" Type="System.String" DbType="Char(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenNSP" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="NhomSanPham_ChiTietSanPham" Member="ChiTietSanPhams" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="ChiTietSanPham" />
       <Association Name="NhomSanPham_Hang" Member="Hangs" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="Hang" />
       <Association Name="NhomSanPham_SanPham" Member="SanPhams" ThisKey="MaNhomSP" OtherKey="MaNhomSP" Type="SanPham" />
@@ -198,6 +203,7 @@
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="MaNhomSP" Type="System.String" DbType="Char(5)" CanBeNull="true" />
       <Column Name="MaHang" Type="System.String" DbType="Char(5)" CanBeNull="true" />
+      <Column Name="TinhTrang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="SanPham_BaoHanh" Member="BaoHanhs" ThisKey="MaSP" OtherKey="MaSP" Type="BaoHanh" />
       <Association Name="SanPham_TraGop" Member="TraGops" ThisKey="MaSP" OtherKey="MaSP" Type="TraGop" />
       <Association Name="SanPham_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="MaSP" OtherKey="MaSP" Type="ChiTietHoaDon" />

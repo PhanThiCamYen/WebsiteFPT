@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "DeleteKH";
+    Layout = "~/Views/Shared/QuanLy.cshtml";
+}
+<div class="container">
+    <table class="table table-bordered" style="text-align:center;">
+        <tr>
+            <td scope="col" style="width:25%;">Mã Khách Hàng</td>
+            <td scope="col">@Html.Encode(Model.MaKH)</td>
+
+        </tr>
+        <tr>
+            <td scope="col" style="width:25%;">Họ Tên </td>
+            <td scope="col">@Model.TenKH</td>
+        </tr>
+        <tr>
+            <td scope="col" style="width:25%;">Giới Tính</td>
+            <td scope="col">@Model.GioiTinhKH</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Ngày Sinh</td>
+            <td>@Model.NgaySinhKH</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Số Điện Thoại</td>
+            <td colspan="2">@Model.SDTKH</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Email</td>
+            <td colspan="2">@Model.EmailKH</td>
+
+        </tr>
+        <tr>
+            <td scope="row" style="width:25%;">Địa Chỉ</td>
+            <td>@Model.DiaChiKH</td>
+
+        </tr>
+    </table>
+    @using (Html.BeginForm())
+    {
+        <p style="text-align:center">
+            <input type="submit" value="Xoá" class="btn btn-secondary" />
+            @Html.ActionLink("Quay Lại.", "KhachHang", "KhachHang", null, new { @class = "btn btn-secondary" })
+        </p>
+    }
+</div>
+
+
+
+
+
+

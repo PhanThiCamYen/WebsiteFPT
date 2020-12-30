@@ -17,12 +17,7 @@
         <div class="carousel-item active" id="slide1">
             <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM1.png" width="100%" height="350px" alt="First slide">
         </div>
-        @*<div class="carousel-item" id="slide2">
-                <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM2.jpg" width="100%" height="350px" alt="Second slide">
-            </div>*@
-        @*<div class="carousel-item" id="slide3">
-                <img class="d-block w-100" src="~/Content/Img_Show/QCKM&TGop/QC_KM3.jpg" width="100%" height="350px" alt="Third slide">
-            </div>*@
+       
         <div class="carousel-item" id="slide4">
             <img class="d-block w-100" src="~/Content/Img_Show/QC_DT/qc4.png" width="100%" height="350px" alt="Four slide">
         </div>
@@ -44,7 +39,7 @@
 <div class="container">
     <div>
         <p style="font-weight:bolder;font-size:18px ">
-            <marquee direction="right">SẢN PHẨM ĐIỆN THOẠI</marquee>
+            <marquee direction="right">CÁC SẢN PHẨM KHUYẾN MÃI</marquee>
 
     </div>
     <div class="row">
@@ -61,10 +56,10 @@
                             <h5><a class="text-name-product" href="@Url.Action("Details", "SanPham", new { id = sp.MaSP })">@sp.TenSP</a></h5>
                         </div>
                         <div class="giasanpham">
-                           <del><h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5></del> 
+                            <del><h5>@string.Format("{0:N0}", sp.GiaBan) VNĐ</h5></del>
                         </div>
                         <div class="giasanpham">
-                            <h5>Giá Khuyến Mãi @string.Format("{0:N0}", sp.GiaBan) VNĐ</h5>
+                            <h5>Giá Khuyến Mãi @string.Format("{0:N0}", sp.GiaBan - (sp.GiaBan * 0.02)) VNĐ</h5>
                         </div>
                         <div class="ngay">
                             <h5></h5>

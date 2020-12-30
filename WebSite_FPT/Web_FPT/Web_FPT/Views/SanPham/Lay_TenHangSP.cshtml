@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Web_FPT.Models.Hang>
+
+@foreach (var item in Model)
+{
+    <div>
+        <a href="@Url.Action("QL_HangSanPham", new { mahang = @item.MaHang }) " class="dropdown-item"> @item.TenHang</a>
+    </div>
+    }
+
+

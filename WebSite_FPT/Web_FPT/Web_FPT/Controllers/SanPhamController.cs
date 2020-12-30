@@ -16,55 +16,57 @@ namespace Web_FPT.Controllers
             var all_sp = from sp in fpt.SanPhams select sp;
             return View(all_sp);
         }
-        /*Lấy Sản phẩm điện thoại*/
-        private List<SanPham> laySanPhamDienThoai()
+
+        public ActionResult QL_HangSanPham(string mahang)
         {
-            return fpt.SanPhams.Where(a => a.MaNhomSP =="DT").ToList();
+            List<SanPham> list_sp = fpt.SanPhams.ToList();
+            List<SanPham> list_sp1 = list_sp.Where(sp => sp.MaHang == mahang).ToList();
+            return View(list_sp1);
         }
-        public ActionResult SanPhamDienThoai()
+
+        public ActionResult Lay_TenHangSP(string masp)
         {
-            var dt = laySanPhamDienThoai();
-            return View(dt);
+            List<Hang> lst_hsp = fpt.Hangs.Where(hang => hang.MaNhomSP == masp).ToList();
+            return PartialView(lst_hsp);
         }
-        /*Lấy Sản phẩm laptop*/
-        private List<SanPham> laySanPhamLapTop()
+
+        /*Lấy Giá Sản phẩm điện thoại*/
+        public ActionResult MucGiaDT(int gia1, int gia2)
         {
-            return fpt.SanPhams.Where(a => a.MaNhomSP == "LT").ToList();
+            var gia_dt = fpt.SanPhams.Where(sp => sp.GiaBan >= gia1 && sp.GiaBan < gia2 && sp.MaNhomSP == "DT").ToList();
+            return View(gia_dt);
         }
-        public ActionResult SanPhamLapTop()
+        /*Lấy Gía Sản phẩm laptop*/
+        public ActionResult MucGiaLT(int gia1, int gia2)
         {
-            var lt = laySanPhamLapTop();
-            return View(lt);
+            var gia_lt = fpt.SanPhams.Where(sp => sp.GiaBan >= gia1 && sp.GiaBan < gia2 && sp.MaNhomSP == "LT").ToList();
+            return View(gia_lt);
         }
-        /*Lấy Sản phẩm đồng hồ*/
-        private List<SanPham> laySanPhamDongHo()
+        /*Lấy Gía Sản phẩm đồng hồ*/
+        public ActionResult MucGiaDH(int gia1, int gia2)
         {
-            return fpt.SanPhams.Where(a => a.MaNhomSP == "DH").ToList();
-        }
-        public ActionResult SanPhamDongHo()
-        {
-            var dh = laySanPhamDongHo();
-            return View(dh);
+            var gia_dh = fpt.SanPhams.Where(sp => sp.GiaBan >= gia1 && sp.GiaBan < gia2 && sp.MaNhomSP == "DH").ToList();
+            return View(gia_dh);
         }
         /*Lấy Sản phẩm Tablet*/
         private List<SanPham> laySanPhamTabLet()
         {
             return fpt.SanPhams.Where(a => a.MaNhomSP == "TL").ToList();
         }
-        public ActionResult SanPhamTabLet()
+        public ActionResult MucGiaTL(int gia1, int gia2)
         {
-            var tl = laySanPhamTabLet();
-            return View(tl);
+            var gia_tl = fpt.SanPhams.Where(sp => sp.GiaBan >= gia1 && sp.GiaBan < gia2 && sp.MaNhomSP == "TL").ToList();
+            return View(gia_tl);
         }
         /*Lấy Sản phẩm Phụ Kiện*/
-        private List<SanPham> laySanPhamPhuKien()
+        //private List<SanPham> laySanPhamPhuKien()
+        //{
+        //    return fpt.SanPhams.Where(a => a.MaNhomSP == "PK").ToList();
+        //}
+        public ActionResult MucGiaPK(int gia1, int gia2)
         {
-            return fpt.SanPhams.Where(a => a.MaNhomSP == "PK").ToList();
-        }
-        public ActionResult SanPhamPhuKien()
-        {
-            var pk = laySanPhamPhuKien();
-            return View(pk);
+            var gia_pk = fpt.SanPhams.Where(sp => sp.GiaBan >= gia1 && sp.GiaBan < gia2 && sp.MaNhomSP == "PK").ToList();
+            return View(gia_pk);
         }
         /*Lấy Sản phẩm sim the*/
         private List<SanPham> laySanPhamSimThe()

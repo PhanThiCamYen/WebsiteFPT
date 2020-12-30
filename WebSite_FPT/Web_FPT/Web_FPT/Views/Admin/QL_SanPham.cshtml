@@ -44,9 +44,9 @@
 <div>
     <ul>
 
-        @using (Html.BeginForm("TimKiem", "TimKiem", FormMethod.Get, new { @class = "form-search form-inline" }))
+        @using (Html.BeginForm("TimKiemAD", "Admin", FormMethod.Get, new { @class = "form-search form-inline" }))
         {
-            <input class="form-control" type="search" id="inputSearch" name="id1" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:500px" />
+            <input class="form-control" type="search" id="inputSearch" name="id" placeholder="Tìm kiếm tên sản phẩm" aria-label="search" onkeyup="fnSearch(this)" style="width:500px" />
 
             <button type="submit" aria-label="Tìm Kiếm" class="btn btn-primary" title="Tìm kiếm" style="width:45px;height:35px;text-align:center;background-color:black;border:1px solid black;">
                 <i class="fas fa-search"></i>

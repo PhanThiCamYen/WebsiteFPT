@@ -6,10 +6,54 @@
     Layout = "~/Views/Shared/QuanLy.cshtml";
 }
 
-<a>
+<style>
+    #time {
+        font-family: 'Times New Roman';
+        font-size: 2em;
+        font-weight: 600;
+        color: black;
+        float: right;
+        padding-right: 1%;
+    }
+
+    #ngay {
+        font-family: 'Times New Roman';
+        font-size: 2em;
+        font-weight: 600;
+        color: black;
+        float: left;
+    }
+</style>
+<div style="background-color:black; color:white; text-align:right;padding-right:1%;font-size:1.1em;">
     @if (Session["ten"] != null)
     {
-        <div>Hello @Session["ten"]</div>
+        <a style="padding-right:2%"> &nbsp; Xin chào @Session["ten"]</a>
+        <a href="@Url.Action("DangXuat","Admin")" class="fas fa-sign-out-alt">&nbsp;Đăng Xuất</a>
     }
-</a>
+</div>
+<div>
+    <a id="ngay">@DateTime.Now.DayOfWeek, @DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year</a>
+    <a id="time"></a>
+</div>
 
+<script>
+    function dongho() {
+        var time = new Date();
+        var nam = time.getFullYea
+        var gio = time.getHours();
+        var phut = time.getMinutes();
+        var giay = time.getSeconds();
+        if (gio < 10) {
+            gio = "0" + gio;
+        }
+        if (phut < 10) {
+            phut = "0" + phut;
+        }
+        if (giay < 10) {
+            giay = "0" + giay;
+        }
+        document.getElementById("time").innerHTML = "Giờ: " + gio + ":" + phut + ":" + giay;
+        setTimeout("dongho()", 1000);
+    }
+    dongho();
+</script>

@@ -2,6 +2,6 @@
 
 @foreach (var item in Model)
 {
-    <a href="@Url.Action("QL_SanPham",new {mansp = @item.MaNhomSP })"> @item.TenNSP</a>
+    <a href="@Url.Action("QL_SanPham","Admin",new {mansp = @item.MaNhomSP })"> @item.TenNSP</a>
 }
 

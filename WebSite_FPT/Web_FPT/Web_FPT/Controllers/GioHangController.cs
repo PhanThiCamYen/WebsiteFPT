@@ -13,16 +13,21 @@ namespace Web_FPT.Controllers
 {
     public class GioHangController : Controller
     {
+        FPTDBContextDataContext fpt = new FPTDBContextDataContext();
         // GET: GioHang
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult ThongTinKhachHang()
         {
             return View();
         }
-        FPTDBContextDataContext fpt = new FPTDBContextDataContext();
+        [HttpPost]
+        public ActionResult ThongTinKhachHang(FormCollection collection)
+        {
+            var sdt = collection["SoDT"];
+            if (kiemtraSDT(sdt)== 0){
+                ViewData["Loi5"] = "Sai định dạng";
+            }
+            return View();
+        }
         public List<GioHang> LayGioHang()
         {
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
@@ -141,102 +146,6 @@ namespace Web_FPT.Controllers
             return View(lstGioHang);
         }
 
-        //[HttpPost]
-        //public ActionResult ThongTinDonHang(FormCollection collection, KHACHHANG kh, DONDATHANG ddh, CHITIETDONHANG ctdh, SANPHAM sp)
-        //{
-
-        //    var hotenkh = collection["hoten"];
-        //    var email = collection["email"];
-        //    var diachikh = collection["diachi"];
-        //    var dienthoai = collection["sodienthoai"];
-        //    var thanhpho = collection["thanhpho"];
-        //    var ghichu = collection["ghichu"];
-        //    var hinhthucthanhtoan = Request.Form["phuongthucthanhtoan"];
-        //    var hinhthucgiaohang = Request.Form["phuongthucgiaohang"];
-        //    var tongtien = TongTien();
-        //    var ngaydat = DateTime.Now;
-
-
-        //    var soluong = collection["soluong"];
-        //    var dongia = collection["dongia"];
-        //    var makh = (from khachhangs in db.KHACHHANGs orderby khachhangs.MAKH descending select new { MAKH = khachhangs.MAKH }).Take(1);
-
-        //    string regexemail = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-        //    string regexten = @"~`!@#$%^&*()_-+=|\}]{[;:'?/>.<,123456789";
-        //    int kqKiemTraSDT = kiemtraSDT(dienthoai);
-        //    if (string.IsNullOrEmpty(hotenkh))
-        //    {
-        //        ViewData["LoiTen"] = "Họ tên không được để trống!";
-        //    }
-
-        //    else if (string.IsNullOrEmpty(dienthoai))
-        //    {
-        //        ViewData["LoiSDT"] = "Số điện thoại không được để trống!";
-        //    }
-        //    else if (string.IsNullOrEmpty(email))
-        //    {
-        //        ViewData["LoiEmail"] = "Email không được để trống!";
-        //    }
-        //    else if (string.IsNullOrEmpty(diachikh))
-        //    {
-        //        ViewData["LoiDiaChi"] = "Địa chỉ không được để trống!";
-        //    }
-
-        //    else if (!Regex.IsMatch(email, regexemail))
-        //    {
-        //        ViewData["LoiEmail"] = "Email không hợp lệ";
-        //    }
-        //    else if (hasSpecialChar(hotenkh))
-        //    {
-        //        ViewData["LoiTen"] = "Tên không hợp lệ";
-        //    }
-        //    else if (kqKiemTraSDT == 1)
-        //    {
-        //        ViewData["LoiSDT"] = "Số điện thoại phải đúng 10 kí tự";
-        //    }
-        //    else if (kqKiemTraSDT == 0)
-        //    {
-        //        ViewData["LoiSDT"] = "Số điện thoại không hợp lệ";
-        //    }
-        //    //else if (String.IsNullOrEmpty(thanhpho))
-        //    //{
-        //    //    ViewData["LoiThanhPho"] = "Thành phố không được để trống!";
-        //    //}
-        //    else
-        //    {
-        //        kh.HOTEN = hotenkh;
-        //        kh.EMAIL = email;
-        //        kh.DIACHIKH = diachikh;
-        //        kh.DIENTHOAIKH = Convert.ToString(dienthoai);
-
-
-        //        db.KHACHHANGs.InsertOnSubmit(kh);
-        //        db.SubmitChanges();
-
-        //        ddh.HINHTHUCGIAOHANG = hinhthucgiaohang;
-        //        ddh.HINHTHUCTHANHTOAN = hinhthucthanhtoan;
-        //        ddh.GHICHU = ghichu;
-        //        ddh.TONGTIEN = Convert.ToDecimal(tongtien);
-        //        ddh.NGAYDAT = ngaydat;
-        //        foreach (var item in makh)
-        //        {
-        //            ddh.MAKH = Convert.ToInt32(item.MAKH);
-        //        }
-
-
-        //        ctdh.MASP = sp.MASP;
-        //        ctdh.DONGIA = sp.GIA;
-        //        ctdh.SOLUONG = TongSoLuong();
-        //        ctdh.DONGIA = Convert.ToDecimal(dongia);
-
-        //        db.DONDATHANGs.InsertOnSubmit(ddh);
-        //        db.CHITIETDONHANGs.InsertOnSubmit(ctdh);
-        //        db.SubmitChanges();
-
-        //        return RedirectToAction("xacnhanDonHang", "GioHang");
-        //    }
-        //    return this.ThongTinDonHang();
-        //}
         // Kiểm tra kí tự đặc biệt trong tên
         public static bool hasSpecialChar(string input)
         {
@@ -300,46 +209,12 @@ namespace Web_FPT.Controllers
             {
                 if (dausoInput.Equals(arrDauSo[i].ToString()))
                 {
-                    return 2; // đúng định dạng
+                    return 1; // đúng định dạng
                 }
             }
 
             return 0; // sai
         }
-        // Xác nhận thông tin đặt hàng thành công
-        //public ActionResult xacnhanDonHang()
-        //{
-        //    XacNhanDonHang confirm = new XacNhanDonHang();
-
-        //    List<GioHang> lstGioHang = LayGioHang();
-        //    var makh = (from khachhangs in db.KHACHHANGs
-        //                join ddh in db.DONDATHANGs on khachhangs.MAKH equals ddh.MAKH
-        //                orderby khachhangs.MAKH descending
-        //                select new { HoTen = khachhangs.HOTEN, DiaChi = khachhangs.DIACHIKH, SDT = khachhangs.DIENTHOAIKH, Email = khachhangs.EMAIL, PhuongThucGiaoHang = ddh.HINHTHUCGIAOHANG }).Take(1);
-        //    ViewBag.TongSoLuong = TongSoLuong();
-
-
-        //    confirm.lstGioHang = lstGioHang;
-        //    foreach (var kh in makh)
-        //    {
-        //        confirm.hoten = kh.HoTen;
-        //        confirm.diachi = kh.DiaChi;
-        //        confirm.email = kh.Email;
-        //        confirm.sdt = kh.SDT;
-        //        confirm.ptgh = kh.PhuongThucGiaoHang;
-
-        //    }
-        //    if (confirm.ptgh.Equals("Giao hàng tiêu chuẩn"))
-        //    {
-        //        ViewBag.TongTien = TongTien() + 12000;
-        //    }
-        //    else
-        //    {
-        //        ViewBag.TongTien = TongTien() + 30000;
-        //    }
-        //    return View(confirm);
-
-        //}
 
         public ActionResult xacnhanDonHangThanhCong(FormCollection collection)
         {
@@ -356,7 +231,7 @@ namespace Web_FPT.Controllers
 
                 string emailTo = collection["EMAIL"];
                 string subject = "Đơn hàng vừa mua";
-                string body = string.Format("Bạn vừa nhận được liên hê từ: <b>{0}</b><br/>Email: {1}<br/>Cảm ơn bạn đã mua hàng tại website", "Admin ", "");
+                string body = string.Format("Bạn vừa nhận được liên hệ từ cửa hàng FPTshop.com.vn: <b>{0}</b><br/>Email: {1}<br/>" + " Xin chào quý khách, Chúng tôi, xin thông báo đơn hàng của quý khách đã được xác nhận.Đơn hàng sẽ được giao đến tận tay quý khách từ 2 - 3 ngày. Xin chân thành cảm ơn quý khách đã sử dụng dịch vụ của công ty chúng tôi.Chúc quý khách một ngày tốt lành.! Mọi thắc mắc xin liên hệ website: Fptshop.vn.comHoặc góp ý khiếu nại dịch vụ(8h00 - 22h00): 1800 6616. Cảm ơn bạn đã mua hàng tại website", "Admin ", "");
 
                 EmailService service = new EmailService();
                 bool kq = service.Send(smtpUserName, smtpPassword, smtpHost, smtpPort, emailTo, subject, body);

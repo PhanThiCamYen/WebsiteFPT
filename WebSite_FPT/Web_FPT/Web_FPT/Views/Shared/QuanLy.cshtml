@@ -28,17 +28,19 @@
                 <div id='cssmenu'>
                     <ul>
                         <li class='home'><span class='close-menu' style='font-size:26px;font-weight:400;position:relative' title='Close'>&#8801; <span style='font-size:18px;font-weight:700;position:absolute;top:17px;left:33px'>Danh Muc Quản Lý</span></span></li>
-                        <li>@Html.ActionLink("Trang Chủ", "Admin", "Admin")</li>
-                        <li class='has-sub'>
+                        <li id="1">@Html.ActionLink("Trang Chủ", "Admin", "Admin")</li>
+                        <li id="2"class='has-sub'>
                             <a><span>Sản Phẩm</span></a>
                             <ul>
                                 <li>@Html.Action("Lay_TenNhomSP", "Admin")</li>
                             </ul>
                         </li>
-                        <li>@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</li>
-                        <li>@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</li>
-                        <li>@Html.ActionLink("Khuyến Mãi", "NhanVien", "Admin")</li>
-                        <li>@Html.ActionLink("Kho", "Kho", "Admin")</li>
+                        <li id="3">@Html.ActionLink("Thống Kê", "NhanVien", "Admin")</li>
+                        <li id="4">@Html.ActionLink("Nhân Viên", "NhanVien", "Admin")</li>
+                        <li id="5">@Html.ActionLink("Khách Hàng", "KhachHang", "KhachHang")</li>
+                        <li id="6">@Html.ActionLink("Khuyến Mãi", "NhanVien", "Admin")</li>
+                        <li id="7">@Html.ActionLink("Kho", "Kho", "Admin")</li>
+
                     </ul>
                 </div>
             </div>

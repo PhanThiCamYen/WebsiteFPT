@@ -15,6 +15,8 @@ namespace Web_FPT.Controllers
         public ActionResult KhuyenMai()
         {
             var lspkm = laySPKM();
+            //var lay_giamgia = from sp in fpt.SanPhams join km in fpt.KhuyenMais on sp.MaSP equals km.MaSP select sp.GiaBan * km.MucGiamGia;            
+            //Session["giamGia"] =lay_giamgia;
             return View(lspkm);
         }
 
@@ -22,6 +24,8 @@ namespace Web_FPT.Controllers
         {
             return fpt.SanPhams.ToList();
         }
+
+
 
     }
 }

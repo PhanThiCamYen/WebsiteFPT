@@ -117,7 +117,7 @@ tr:nth-child(even) {
 
 .box-content-search {
     position: absolute;
-    top: 40px;
+    top: 57px;
     background-color: #fff;
     z-index: 10;
     width: calc(100% - 50px);

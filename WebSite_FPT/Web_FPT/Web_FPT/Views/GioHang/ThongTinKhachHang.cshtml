@@ -44,7 +44,7 @@
                 <label for="username" class="cols-sm-2 control-label" style="font-size:17px;">4. Địa Chỉ Giao Hàng*</label>
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        @Html.TextBox("DIACHI", null, new { @class = "form-control", @placeholder = "Nhập địa chỉ giao hàng" })
+                        @Html.TextBox("DIACHI", null, new { @class = "form-control", @placeholder = "Nhập địa chỉ giao hàng", @name = "SoDT" })
                     </div>
                     <div style="color:red">
                         @ViewData["Loi4"]
@@ -152,7 +152,8 @@
         rules: {
             "SDT": {
                 required: true,
-                maxlength: 10
+                maxlength: 10,
+                
             },
             "HOTENKH": {
                 required: true,
